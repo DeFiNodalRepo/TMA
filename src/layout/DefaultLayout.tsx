@@ -5,14 +5,24 @@ import HeaderStats from '../components/HeaderStats';
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
+  // const bgStyle = {
+  //   backgroundImage: "url('src/assets/df-modern-dark.png')",
+  //   backgroundSize: 'cover',
+  //   backgroundPosition: 'center',
+  // };
+  // <div className="bg-sky-900" style={bgStyle}>
+
+
   return (
     <div className="bg-sky-900">
       <div className="flex h-screen overflow-hidden">
-        <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Header />
-          <HeaderStats />
+          <div className='sticky top-4'>
+            <HeaderStats />
+          </div>
           <main>
-            <div className="p-4 mx-auto max-w-screen-2xl ">
+            <div className="mx-auto mt-[2px] max-w-screen-2xl p-4">
               {children}
             </div>
           </main>

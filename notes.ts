@@ -1,4 +1,4 @@
-{
+export const tmaData = {
   "clickerUser": {
     "id": "7096949915",
     "totalCoins": 3910367.895299997,
