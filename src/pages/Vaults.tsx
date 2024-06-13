@@ -2,6 +2,7 @@
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
 import { tmaData } from '../../notes'
+import CardTabs from '../components/CardTabs';
 
 function Vaults() {
 
@@ -15,6 +16,7 @@ function Vaults() {
   return (
     <DefaultLayout >
       <div className='w-full rounded-md bg-gray-900 py-2 text-center text-2xl font-semibold text-amber-300'>Vaults</div>
+      <CardTabs />
       {tmaData.upgradesForBuy.map(item => (<VaultCards key={item.id} img={item.img} name={item.name} description={item.name} level={item.level} price={item.price} />))}
 
     </DefaultLayout>
