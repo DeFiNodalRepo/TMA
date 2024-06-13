@@ -3,7 +3,7 @@
 function VaultCards({ img, name, description, level, price }) {
   return (
 
-    <div className="my-4 flex max-w-md overflow-hidden rounded-lg bg-stone-800 shadow-lg">
+    <div className="my-4 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-lg">
 
       <img className="w-1/3 bg-cover" src={img} alt={name} />
 
