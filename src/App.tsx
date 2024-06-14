@@ -6,6 +6,9 @@ import Earn from "./pages/Missions";
 import Vaults from "./pages/Vaults";
 import Referrals from "./pages/Referral";
 import Missions from "./pages/Missions";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -13,32 +16,35 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
+  const queryClient = new QueryClient()
 
   return loading ? (
     <Loader />
   ) : (
-    <Router>
-      <Routes>
-        <Route
-          index
-          element={<Dashboard />}
-        />
-        <Route
-          path="/vaults"
-          element={<Vaults />}
-        />
-        <Route
-          path="/missions"
-          element={<Missions />}
-        />
-        <Route
-          path="/referrals"
-          element={<Referrals />}
-        />
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route
+            index
+            element={<Dashboard />}
+          />
+          <Route
+            path="/vaults"
+            element={<Vaults />}
+          />
+          <Route
+            path="/missions"
+            element={<Missions />}
+          />
+          <Route
+            path="/referrals"
+            element={<Referrals />}
+          />
 
-      </Routes>
-    </Router>
-
+        </Routes>
+      </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
