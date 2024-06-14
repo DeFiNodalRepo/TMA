@@ -16,8 +16,12 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 
   return (
+<<<<<<< HEAD
 
     <div className="bg-sky-900">
+=======
+    <div className="bg-gray-900">
+>>>>>>> c39fd13c4779c905befe20b6504b16398be9e749
       <div className="flex h-screen overflow-hidden">
         <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
           <Header />
