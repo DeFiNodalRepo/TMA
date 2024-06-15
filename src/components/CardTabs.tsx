@@ -3,11 +3,7 @@
 function CardTabs() {
   return (
     <div className="text-xl text-white">
-
-
 <div>
-
-
   <div className="block">
 
       <nav className="-mb-px flex gap-6" aria-label="Tabs">
