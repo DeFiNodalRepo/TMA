@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react'
 
 function CardPopUp({isPopupOpen}) {
 
-  console.log("popup")
   const [open, setOpen] = useState(isPopupOpen || false)
 
   return (

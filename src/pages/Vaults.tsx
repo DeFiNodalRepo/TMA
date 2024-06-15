@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
-
-import { useQuery } from '@tanstack/react-query';
 import { getVaults } from '../api/apiCalls';
 import CardTabs from '../components/CardTabs';
 
@@ -28,6 +29,7 @@ function Vaults() {
     return <div>Error occurred</div>
   }
 
+
   return (
     <DefaultLayout >
 
@@ -35,7 +37,23 @@ function Vaults() {
 
       <CardTabs />
 
-      {data.map(item => (<VaultCards key={item.id} img={item.img} name={item.name} description={item.name} level={item.level} price={item.price} />))}
+      {data.map((item, index) => (
+    <motion.div
+      key={item.id}
+      initial={{ x: -100 }} // Start off-screen to the left
+      animate={{ x: 0 }} // Move to original position
+      exit={{ x: 100 }} // Slide out to the right
+      transition={{ duration: 0.12 * index }}
+    >
+    <VaultCards
+      img={item.img}
+      name={item.name}
+      description={item.description}
+      level={item.level}
+      price={item.price}
+    />
+  </motion.div>
+))}
 
     </DefaultLayout>
   )
