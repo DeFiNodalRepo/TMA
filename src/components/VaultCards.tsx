@@ -6,10 +6,9 @@ function VaultCards({ img, name, description, level, price }) {
 
   function handlePopUpToggle(){
     setIsPopupOpen(!isPopupOpen)
-    
-    console.log(isPopupOpen)
-    console.log("clicked")
   }
+
+  const popup = isPopupOpen && <CardPopUp isPopupOpen={isPopupOpen}/>
 
   return (
 
@@ -28,7 +27,7 @@ function VaultCards({ img, name, description, level, price }) {
 
         </div>
       </div>
-      {isPopupOpen && <CardPopUp isPopupOpen={isPopupOpen}/>}
+      {popup}
     </div >
   )
 }

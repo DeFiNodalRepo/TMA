@@ -359,7 +359,7 @@
     "upgradesForBuy": [
       {
         "id": "support_team",
-        "name": "Support team",
+        "name": "Support team refresh",
         "price": 10454,
         "profitPerHour": 967,
         "condition": null,

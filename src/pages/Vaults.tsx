@@ -1,7 +1,5 @@
-
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
-import { tmaData } from '../../notes'
 
 import { useQuery } from '@tanstack/react-query';
 import { getVaults } from '../api/apiCalls';
@@ -14,21 +12,20 @@ function Vaults() {
   const level = 1; // Example level
   const price = 99; // Example price
 
-  // console.log(tmaData.upgradesForBuy)
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['vaults'],
     queryFn: getVaults,
   })
 
-  console.log(data, isError)
+  console.log(data)
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or any loading component
+    return <div>Loading...</div>
   }
 
   if (isError) {
-    return <div>Error occurred</div>; // Handle error appropriately
+    return <div>Error occurred</div>
   }
 
   return (
