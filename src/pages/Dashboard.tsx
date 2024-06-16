@@ -1,9 +1,11 @@
+import DashboardCryptoStats from "../components/DashboardCryptoStats"
 import DefaultLayout from "../layout/DefaultLayout"
 
 function Dashboard() {
   return (
     <DefaultLayout >
-      <div>Dashboard</div>
+
+      <DashboardCryptoStats />
     </DefaultLayout>
   )
 }

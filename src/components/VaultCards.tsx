@@ -14,7 +14,7 @@ function VaultCards({ img, name, description, level, price }) {
 
     <div className="my-4 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={handlePopUpToggle}>
 <CardPopUp show={open}/>
-      <img className="w-1/3 bg-cover" src={img} alt={name} />
+      <img className="ml-2 my-2" src={img} alt={name} width={160} height={20} />
 
       <div className="w-2/3 p-4 md:p-4">
         <h1 className="text-xl font-bold text-gray-300">{name}</h1>

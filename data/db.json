@@ -359,7 +359,7 @@
     "upgradesForBuy": [
       {
         "id": "support_team",
-        "name": "Support team refresh",
+        "name": "Support team2 refresh",
         "price": 10454,
         "profitPerHour": 967,
         "condition": null,
@@ -368,7 +368,8 @@
         "currentProfitPerHour": 838,
         "profitPerHourDelta": 129,
         "isAvailable": true,
-        "isExpired": false
+        "isExpired": false,
+        "img": "src/assets/btc-eth-lp.png"
       },
       {
         "id": "facebook_ads",
