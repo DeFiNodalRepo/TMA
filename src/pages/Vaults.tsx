@@ -17,6 +17,7 @@ function Vaults() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['vaults'],
     queryFn: getVaults,
+
   })
 
   console.log(data)
