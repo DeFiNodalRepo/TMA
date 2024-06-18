@@ -8,6 +8,10 @@ export async function getVaults(){
   return res.json()
 }
 
+export async function updateVaults(){
+  const res = await fetch(`http://localhost:3000/upgradesForBuy/${vaultId}`)
+}
+
 export async function getDailyCombo(){
   const res = await fetch('http://localhost:3000/dailyCombo')
   return res.json()
