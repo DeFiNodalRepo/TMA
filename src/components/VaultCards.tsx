@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import CardPopUp from '../components/CardPopUp'
 
-function VaultCards({ img, name, description, level, price }) {
+function VaultCards({ updateVault, img, name, description, level, price, id }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
-  function handlePopUpToggle(){
+  function handlePopUpToggle() {
     setIsPopupOpen(!isPopupOpen)
   }
 
-  const popup = isPopupOpen && <CardPopUp isPopupOpen={isPopupOpen}/>
+  const popup = isPopupOpen && <CardPopUp updateVault={updateVault} id={id} isPopupOpen={isPopupOpen} />
 
   return (
 
     <div className="my-4 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={handlePopUpToggle}>
-<CardPopUp show={open}/>
-      <img className="ml-2 my-2" src={img} alt={name} width={160} height={20} />
+      <CardPopUp show={open} />
+      <img className="my-2 ml-2" src={img} alt={name} width={160} height={20} />
 
       <div className="w-2/3 p-4 md:p-4">
         <h1 className="text-xl font-bold text-gray-300">{name}</h1>

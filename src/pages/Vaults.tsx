@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 
 import VaultCards from '../components/VaultCards'
@@ -17,7 +17,10 @@ function Vaults() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['vaults'],
     queryFn: getVaults,
+  })
 
+  const updateVault = useMutation({
+    mutationFn: (vaultId) => updateVault(vaultId)
   })
 
   console.log(data)
@@ -34,27 +37,29 @@ function Vaults() {
   return (
     <DefaultLayout >
 
-      <div className='w-full py-2 text-2xl font-semibold text-center bg-gray-900 rounded-md text-amber-300'>Vaults</div>
+      <div className='w-full rounded-md bg-gray-900 py-2 text-center text-2xl font-semibold text-amber-300'>Vaults</div>
 
       <CardTabs />
 
       {data.map((item, index) => (
-    <motion.div
-      key={item.id}
-      initial={{ x: -100 }} // Start off-screen to the left
-      animate={{ x: 0 }} // Move to original position
-      exit={{ x: 100 }} // Slide out to the right
-      transition={{ duration: 0.12 * index }}
-    >
-    <VaultCards
-      img={item.img}
-      name={item.name}
-      description={item.description}
-      level={item.level}
-      price={item.price}
-    />
-  </motion.div>
-))}
+        <motion.div
+          key={item.id}
+          initial={{ x: -100 }} // Start off-screen to the left
+          animate={{ x: 0 }} // Move to original position
+          exit={{ x: 100 }} // Slide out to the right
+          transition={{ duration: 0.12 * index }}
+        >
+          <VaultCards
+            img={item.img}
+            name={item.name}
+            description={item.description}
+            level={item.level}
+            price={item.price}
+            id={item.id}
+            updateVault={updateVault}
+          />
+        </motion.div>
+      ))}
 
     </DefaultLayout>
   )

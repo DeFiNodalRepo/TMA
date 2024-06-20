@@ -8,9 +8,31 @@ export async function getVaults(){
   return res.json()
 }
 
-export async function updateVaults(){
-  const res = await fetch(`http://localhost:3000/upgradesForBuy/${vaultId}`)
+export async function updateVaults({id}){
+    const res = await fetch(`http://localhost:3000/upgradesForBuy/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        "id": "support_team_post",
+        "name": "Support team2 post",
+        "price": 1024,
+        "profitPerHour": 907,
+        "condition": null,
+        "section": "PR&Team",
+        "level": 10,
+        "currentProfitPerHour": 878,
+        "profitPerHourDelta": 129,
+        "isAvailable": true,
+        "isExpired": false,
+        "img": "src/assets/btc-eth-lp.png"
+      },
+    });
+    console.log("mutate")
+    return res.json()
 }
+
 
 export async function getDailyCombo(){
   const res = await fetch('http://localhost:3000/dailyCombo')

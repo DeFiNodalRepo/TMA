@@ -2,12 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 import { useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
-import Earn from "./pages/Missions";
 import Vaults from "./pages/Vaults";
 import Referrals from "./pages/Referral";
 import Missions from "./pages/Missions";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { queryClient } from '../src/react-query/queryClient'
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -15,8 +15,6 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
-  const queryClient = new QueryClient()
 
   return loading ? (
     <Loader />
