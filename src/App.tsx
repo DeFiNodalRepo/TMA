@@ -9,8 +9,11 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from '../src/react-query/queryClient'
 
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+
+  // const isFetching = useIsFetching()
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);

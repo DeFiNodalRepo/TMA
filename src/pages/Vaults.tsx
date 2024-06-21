@@ -5,6 +5,7 @@ import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
 import { getVaults } from '../api/apiCalls';
 import CardTabs from '../components/CardTabs';
+import { useVaults } from '../react-query/useVaults';
 
 function Vaults() {
 
@@ -14,16 +15,20 @@ function Vaults() {
   const price = 99; // Example price
 
 
-  const { data, isLoading, isError } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: ['vaults'],
     queryFn: getVaults,
   })
+
+  const data = useVaults()
+
+  console.log(data)
 
   const updateVault = useMutation({
     mutationFn: (vaultId) => updateVault(vaultId)
   })
 
-  console.log(data)
+  // console.log(data)
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -37,7 +42,7 @@ function Vaults() {
   return (
     <DefaultLayout >
 
-      <div className='w-full rounded-md bg-gray-900 py-2 text-center text-2xl font-semibold text-amber-300'>Vaults</div>
+      <div className='w-full py-2 text-2xl font-semibold text-center bg-gray-900 rounded-md text-amber-300'>Vaults</div>
 
       <CardTabs />
 

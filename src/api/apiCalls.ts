@@ -1,15 +1,17 @@
+import { baseUrl } from "./constants"
+
 export async function getAllData(){
-  const res = await fetch ('http://localhost:3000/clickerUser')
+  const res = await fetch (`${baseUrl}/clickerUser`)
   return res.json()
 }
 
 export async function getVaults(){
-  const res = await fetch('http://localhost:3000/upgradesForBuy')
+  const res = await fetch(`${baseUrl}/upgradesForBuy`)
   return res.json()
 }
 
 export async function updateVaults({id}){
-    const res = await fetch(`http://localhost:3000/upgradesForBuy/${id}`, {
+    const res = await fetch(`${baseUrl}/upgradesForBuy/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
