@@ -15,10 +15,10 @@ function Vaults() {
   const price = 99; // Example price
 
 
-  const { isLoading, isError } = useQuery({
-    queryKey: ['vaults'],
-    queryFn: getVaults,
-  })
+  // const { isLoading, isError } = useQuery({
+  //   queryKey: ['vaults'],
+  //   queryFn: getVaults,
+  // })
 
   const data = useVaults()
 
@@ -30,13 +30,13 @@ function Vaults() {
 
   // console.log(data)
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>
+  // }
 
-  if (isError) {
-    return <div>Error occurred</div>
-  }
+  // if (isError) {
+  //   return <div>Error occurred</div>
+  // }
 
 
   return (

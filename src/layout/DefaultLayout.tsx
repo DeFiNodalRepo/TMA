@@ -10,9 +10,9 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const isFetching = useIsFetching()
 
-  if (isFetching) {
-    console.log("true")
-  }
+  // if (isFetching) {
+  //   console.log("true")
+  // }
 
   return (
     <div className="bg-sky-900">

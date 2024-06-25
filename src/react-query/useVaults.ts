@@ -12,7 +12,8 @@ export function useVaults(){
 
   const {data = fallbackData} = useQuery({
     queryKey: ['vaults'],
-    queryFn: getVaults
+    queryFn: getVaults,
+    staleTime: 5 * 60 * 1000,
   })
   return data
 }

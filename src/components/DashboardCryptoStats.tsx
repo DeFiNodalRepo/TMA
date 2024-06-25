@@ -1,14 +1,7 @@
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { getCryptoStats } from '../api/apiCalls'
 import { useQuery } from "@tanstack/react-query";
-
-const stats = [
-  { id: 1, name: 'BTC', stat: '71,897', icon: "BTC", change: '122', changeType: 'increase' },
-  { id: 2, name: 'ETH', stat: '3,654', icon: "ETH", change: '5.4%', changeType: 'increase' },
-  { id: 3, name: 'XRP', stat: '0.65', icon: "XRP", change: '3.2%', changeType: 'decrease' },
-  { id: 4, name: 'BNB', stat: '612', icon: "BNB", change: '3.2%', changeType: 'decrease' },
-]
-
+import Toast from "./toast";
 
 
 function classNames(...classes) {
@@ -39,19 +32,20 @@ function DashboardCryptoStats() {
 
   return (
     <div>
+      <Toast />
       <h3 className="text-2xl font-semibold leading-6 text-gray-300">Market Move</h3>
 
-      <dl className="mt-5 grid grid-cols-2 gap-2">
+      <dl className="grid grid-cols-2 gap-2 mt-5">
         {data.map((item) => (
           <div
             key={item.id}
-            className="relative overflow-hidden rounded-lg bg-gray-700 px-2 pb-2 pt-2 shadow"
+            className="relative px-2 pt-2 pb-2 overflow-hidden bg-gray-700 rounded-lg shadow"
           >
             <dt>
               <div className="absolute rounded-md">
                 <img src={item.image} height={30} width={30} />
               </div>
-              <p className="truncate text-center text-xl font-medium text-gray-300">{item.symbol}</p>
+              <p className="text-xl font-medium text-center text-gray-300 truncate">{item.symbol}</p>
             </dt>
             <dd className="flex items-baseline pb-6 text-center sm:pb-7">
               <p className="text-xl font-semibold text-gray-300">{item.current_price}</p>
@@ -63,9 +57,9 @@ function DashboardCryptoStats() {
                 )}
               >
                 {item.changeType === 'increase' ? (
-                  <FaArrowUp className="h-5 w-5 flex-shrink-0 self-center text-green-500" aria-hidden="true" />
+                  <FaArrowUp className="self-center flex-shrink-0 w-5 h-5 text-green-500" aria-hidden="true" />
                 ) : (
-                  <FaArrowDown className="h-5 w-5 flex-shrink-0 self-center text-red-500" aria-hidden="true" />
+                  <FaArrowDown className="self-center flex-shrink-0 w-5 h-5 text-red-500" aria-hidden="true" />
                 )}
 
                 <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
