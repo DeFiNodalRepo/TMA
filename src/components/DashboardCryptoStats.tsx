@@ -1,8 +1,6 @@
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { getCryptoStats } from '../api/apiCalls'
 import { useQuery } from "@tanstack/react-query";
-import Toast from "./toast";
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -28,11 +26,10 @@ function DashboardCryptoStats() {
     return <div>Err</div>
   }
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div>
-      <Toast />
       <h3 className="text-2xl font-semibold leading-6 text-gray-300">Market Move</h3>
 
       <dl className="grid grid-cols-2 gap-2 mt-5">

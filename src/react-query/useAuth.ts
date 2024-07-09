@@ -3,7 +3,7 @@ import { baseUrl } from "../api/constants";
 
 async function getAuth() {
     try {
-        const res = await fetch(`${baseUrl}sync`, {
+        const res = await fetch(`${baseUrl}authorise`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ export function useAuth(){
     queryFn: getAuth,
     staleTime: 5 * 60 * 1000,
     retry: 2,
+    refetchOnMount: false
   })
   return {data, isError, isLoading}
 }
