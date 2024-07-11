@@ -8,7 +8,7 @@ function Dashboard(initSessionData) {
   console.log(initSessionData)
 
 const {data, isError, isLoading} = useAuth()
-// console.log(data, "Error", isError)
+console.log(data, "Error", isError)
 
 
 

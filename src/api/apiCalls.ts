@@ -5,8 +5,14 @@ export async function getAllData(){
   return res.json()
 }
 
-export async function getVaults(){
-  const res = await fetch(`${baseUrl}/upgradesForBuy`)
+export async function getSyncData(){
+  const res = await fetch(`${baseUrl}/sync`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${initSessionData}`
+    }
+  })
   return res.json()
 }
 

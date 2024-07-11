@@ -1,0 +1,9 @@
+{
+  "uri": "http://logo/link",
+  "externalURL": "http://external.link/to/x",
+  "title": "x",
+  "description": "Jopin the x revolution",
+  "reward": 2000000000,
+  "ExpiresAt": "2024-07-08T00:00:00Z",
+  "isEnabled": true
+}
