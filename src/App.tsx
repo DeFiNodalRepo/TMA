@@ -8,6 +8,8 @@ import Missions from "./pages/Missions";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from '../src/react-query/queryClient'
+import { getAuth } from "./api/apiCalls";
+import { useConfData } from "./react-query/useConfData";
 
 function App() {
 
@@ -16,6 +18,10 @@ function App() {
   const initSessionData = tgData.initData
 
   const [loading, setLoading] = useState<boolean>(true);
+
+  // const {data} = getAuth()
+
+  // console.log(data)
 
   // const isFetching = useIsFetching()
 

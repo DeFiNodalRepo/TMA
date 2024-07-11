@@ -12,13 +12,29 @@ export async function getVaults(){
 
 export async function getAuth() {
   try {
-      const res = await fetch(`${baseUrl}authorise`, {
+      const res = await fetch(`${baseUrl}/authorise`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             // 'Authorization': `Bearer ${initSessionData}`
           },
       });
+
+      if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      return data;
+  } catch (error) {
+      console.error("Failed to fetch auth:", error);
+      throw error; // Rethrow to handle in the calling function
+  }
+}
+
+export async function getConfData() {
+  try {
+      const res = await fetch(`${baseUrl}/conf`);
 
       if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

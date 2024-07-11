@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 function MenuBar() {
   return (
     <div className='flex justify-center'>
-      <div className="flex divide-x divide-gray-700 overflow-hidden rounded-lg border border-gray-700 bg-gray-900 rtl:flex-row-reverse">
+      <div className="flex divide-x divide-gray-700 overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
         <NavLink to="/" className={({ isActive }) => isActive ? "bg-gray-700" : ""}>
           <button className="flex flex-col items-center gap-x-3 px-4 py-2 text-xs font-medium text-gray-300 transition-colors duration-200">
             <MdDashboard size={25} />
