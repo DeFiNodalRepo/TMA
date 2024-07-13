@@ -1,5 +1,7 @@
 import { baseUrl } from "./constants"
 
+
+
 export async function getAllData(){
   const res = await fetch (`${baseUrl}/clickerUser`)
   return res.json()
@@ -16,14 +18,14 @@ export async function getSyncData(){
   return res.json()
 }
 
-export async function getAuth() {
+export async function getAuth(initSessionData) {
   try {
       const res = await fetch(`${baseUrl}/authorise`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${initSessionData}`
           },
+          body: JSON.stringify({initData: initSessionData, referredBy: "referal id"})
       });
 
       if (!res.ok) {
@@ -40,17 +42,18 @@ export async function getAuth() {
 
 export async function getConfData() {
   try {
-      const res = await fetch(`${baseUrl}/conf`);
+      const res = await fetch(`${baseUrls}/conf`);
 
       if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
+        const message = await res.text();
+          throw new Error(`HTTP error! status: ${res.status}: ${message}`);
       }
 
       const data = await res.json();
       return data;
   } catch (error) {
-      console.error("Failed to fetch auth:", error);
-      throw error; // Rethrow to handle in the calling function
+      console.error("Failed to fetch conf:", error);
+      throw error; 
   }
 }
 
@@ -92,6 +95,5 @@ export async function getCryptoStats(){
   };
   
   const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=binancecoin%2C%20bitcoin%2C%20ethereum%2C%20solana', options)
-  console.log("res")
   return res.json()
 }

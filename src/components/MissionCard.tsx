@@ -55,7 +55,7 @@ export default function MissionCard({missions}: Missions) {
   // Object.entries(missions).map(([key, mission]) => console.log(key, mission))
 
   const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true)
-  console.log(activeMissions)
+  // console.log(activeMissions)
 
   const expiredMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled ===false)
   

@@ -1,7 +1,8 @@
+import { useContext } from 'react';
 import Loader from '../components/Loader';
 import MissionCard from '../components/MissionCard';
 import DefaultLayout from '../layout/DefaultLayout'
-import { useConfData } from '../react-query/useConfData'
+import { ConfDataContext } from '../state-management/context';
 
 export interface Mission {
   uri: string;
@@ -21,13 +22,15 @@ interface Missions {
 
 function Missions() {
 
-  const {data, isError} = useConfData()
+  const confData = useContext(ConfDataContext)
 
-  const missions = data?.missions as Missions;
+  const missions = confData.missions as Missions;
 
-  if (isError || !missions){
-    return <Loader />
-  }
+  console.log(confData)
+
+  // if (confData === error){
+  //   return <Loader />
+  // }
 
   return (
     <DefaultLayout >
