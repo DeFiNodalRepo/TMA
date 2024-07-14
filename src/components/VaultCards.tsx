@@ -8,7 +8,7 @@ function VaultCards({ updateVault, img, name, description, currentLevel, price, 
     setIsPopupOpen(!isPopupOpen)
   }
 
-  const popup = isPopupOpen && <CardPopUp updateVault={updateVault} id={id} isPopupOpen={isPopupOpen} />
+  const popup = isPopupOpen && <CardPopUp updateVault={updateVault} img={img} name={name} description={description} currentLevel={currentLevel} price={price} earnings={earnings} id={id} isPopupOpen={isPopupOpen} />
 
   return (
 
@@ -22,7 +22,6 @@ function VaultCards({ updateVault, img, name, description, currentLevel, price, 
             <p className="text-xs">Per Hour: {earnings}</p>
           </div>
         </div>
-        {/* <p className="mt-2 text-sm ">{description}</p> */}
         <div className="item-center mt-3 mx-4 flex justify-between">
           <h1 className="text-sm  ">Lvl: {currentLevel}</h1>
           <h1 className="text-sm ">Cost: {price}</h1>

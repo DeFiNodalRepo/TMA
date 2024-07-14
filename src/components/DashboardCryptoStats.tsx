@@ -12,8 +12,8 @@ function DashboardCryptoStats() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['cryptoData'],
     queryFn: getCryptoStats,
-    staleTime: 5 * 60 * 1000,
-    // refetchOnMount: false,
+    staleTime: 10 * 60 * 1000,
+    refetchOnMount: false,
     // gcTime: 5 * 60 * 1000
   })
 

@@ -21,11 +21,11 @@ function News({news}: NewsProps) {
 			<h1 className="text-2xl">News</h1>     
 			{news?.map((article, index) => (
 				<a key={index} href={article.externalURL} target="_blank" rel="noopener noreferrer" className="block">
-					<div className="rounded-md bg-green-800 p-4 mt-2">
+					<div className="rounded-md p-4 mt-2 border border-gray-700 shadow-lg shadow-gray-800/40">
 						<div className="flex">
 							<div className="ml-3">
-								<h3 className="text-sm font-medium text-red-300">{article.title}</h3>
-								<div className="mt-2 text-sm text-red-400">
+								<h3 className="text-sm font-medium text-gray-300">{article.title}</h3>
+								<div className="mt-2 text-sm text-gray-400">
 								<p>{article.description}</p>
 								</div>
 							</div>
