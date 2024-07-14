@@ -21,7 +21,7 @@ function HeaderStats() {
           <dd className="mt-1 text-center text-base font-semibold tracking-tight text-gray-300">{userHeaderParsed.ratePerHour}</dd>
         </div>
         <div className="overflow-hidden rounded-lg border border-gray-700 bg-gray-900 px-2 py-3 shadow">
-          <dt className={`text-md font-medium truncate text-amber-500 text-center`}>Total Coins</dt>
+          <dt className={`text-md font-medium truncate text-sky-500 text-center`}>Total Coins</dt>
           <dd className="mt-1 text-center text-base font-semibold tracking-tight text-gray-300">{userHeaderParsed.balance}</dd>
         </div>
       </dl>

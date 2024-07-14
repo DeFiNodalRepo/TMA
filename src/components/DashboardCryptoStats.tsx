@@ -30,7 +30,7 @@ function DashboardCryptoStats() {
 
   return (
     <div>
-      <h3 className="text-2xl font-semibold leading-6 text-gray-300">Market Move</h3>
+      <h3 className="text-2xl leading-6 text-gray-300">Market Move</h3>
 
       <dl className="grid grid-cols-2 gap-2 mt-5">
         {data.map((item) => (
