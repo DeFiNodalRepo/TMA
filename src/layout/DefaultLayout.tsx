@@ -4,8 +4,6 @@ import MenuBar from '../components/MenuBar';
 import HeaderStats from '../components/HeaderStats';
 import { useIsFetching } from "@tanstack/react-query";
 import Loader from '../components/Loader';
-import { useConfData } from '../react-query/useConfData';
-
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 

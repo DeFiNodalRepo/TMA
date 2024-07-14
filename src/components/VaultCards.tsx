@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import CardPopUp from '../components/CardPopUp'
 
-function VaultCards({ updateVault, img, name, description, level, price, id }) {
+function VaultCards({ updateVault, img, name, description, currentLevel, price, id, earnings }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   function handlePopUpToggle() {
@@ -12,19 +12,20 @@ function VaultCards({ updateVault, img, name, description, level, price, id }) {
 
   return (
 
-    <div className="my-4 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={handlePopUpToggle}>
+    <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={handlePopUpToggle}>
       <CardPopUp show={open} />
-      <img className="my-2 ml-2" src={img} alt={name} width={160} height={20} />
-
-      <div className="w-2/3 p-4 md:p-4">
-        <h1 className="text-xl font-bold text-gray-300">{name}</h1>
-
-        <p className="mt-2 text-sm text-gray-300">{description}</p>
-
-        <div className="item-center mt-3 flex justify-between">
-          <h1 className="text-lg font-bold text-gray-300">Lvl: {level}</h1>
-          <h1 className="text-lg font-bold text-gray-300">Cost: {price}</h1>
-
+      <div className="my-2 mx-2">
+        <div className="grid grid-cols-2 gap-2 items-center">
+          <img className="rounded-lg w-16 h-16" src={img} alt={name} />
+          <div className='grip grid-rows-2'>
+            <h1 className="text-sm font-bold mb-1">{name}</h1>
+            <p className="text-xs">Per Hour: {earnings}</p>
+          </div>
+        </div>
+        {/* <p className="mt-2 text-sm ">{description}</p> */}
+        <div className="item-center mt-3 mx-4 flex justify-between">
+          <h1 className="text-sm  ">Lvl: {currentLevel}</h1>
+          <h1 className="text-sm ">Cost: {price}</h1>
         </div>
       </div>
       {popup}

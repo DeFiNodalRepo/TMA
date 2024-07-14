@@ -4,8 +4,8 @@ import DefaultLayout from "../layout/DefaultLayout"
 function Dashboard() {
 
   return (
-    <DefaultLayout >
-      <DashboardCryptoStats />
+    <DefaultLayout>
+  <DashboardCryptoStats />
     </DefaultLayout>
   )
 }

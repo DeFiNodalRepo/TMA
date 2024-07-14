@@ -7,12 +7,12 @@ export async function getAllData(){
   return res.json()
 }
 
-export async function getSyncData(){
+export async function getSyncData(apiToken){
   const res = await fetch(`${baseUrl}/sync`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${initSessionData}`
+      'Authorization': `Bearer ${apiToken}`
     }
   })
   return res.json()
@@ -42,7 +42,7 @@ export async function getAuth(initSessionData) {
 
 export async function getConfData() {
   try {
-      const res = await fetch(`${baseUrls}/conf`);
+      const res = await fetch(`${baseUrl}/conf`);
 
       if (!res.ok) {
         const message = await res.text();
@@ -78,7 +78,6 @@ export async function updateVaults({id}){
         "img": "src/assets/btc-eth-lp.png"
       },
     });
-    console.log("mutate")
     return res.json()
 }
 

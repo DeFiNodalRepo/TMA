@@ -24,13 +24,13 @@ function Missions() {
 
   const confData = useContext(ConfDataContext)
 
-  const missions = confData.missions as Missions;
+  const missions = confData?.missions;
 
-  console.log(confData)
+  console.log(missions)
 
-  // if (confData === error){
-  //   return <Loader />
-  // }
+  if (!confData || !confData.missions) {
+    return <Loader />
+  }
 
   return (
     <DefaultLayout >

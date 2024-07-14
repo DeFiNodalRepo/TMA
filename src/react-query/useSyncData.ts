@@ -6,7 +6,7 @@ export function useSyncData(){
   const {data, isError, isLoading} = useQuery({
     queryKey: ['sync'],
     queryFn: getSyncData,
-    staleTime: 50 * 60 * 1000,
+    staleTime: 10 * 60 * 1000,
     refetchOnMount: false
   })
   return {data, isError, isLoading}
