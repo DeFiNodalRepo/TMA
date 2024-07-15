@@ -6,50 +6,55 @@ import DefaultLayout from '../layout/DefaultLayout'
 import { getVaults } from '../api/apiCalls';
 import CardTabs from '../components/CardTabs';
 import { useContext } from 'react';
-import { ConfDataContext, IVault, SyncDataContext } from '../state-management/context';
-import { config } from 'chai';
+import { AppContext, ConfDataContext, IVault, SyncDataContext } from '../state-management/context';
+import { useSyncData } from '../react-query/useSyncData';
+import Loader from '../components/Loader';
 
-function Vaults() {
 
-  interface Vault {
-    uri: string;
-    title: string;
-    description: string;
-    section: string;
-    ConditionType: string;
-    conditionId: string;
-    conditionValue: number;
-    isEnabled: boolean;
-  }
-
-  interface VaultsCollection {
-    [vaultId: string]: Vault;
-  }
-
-interface VaultUserDetails {
-  upgradePrice: number | undefined;
-  currentProfitPerHour: number;
-  profitPerHourDelta: number;
-  currentLevel: number;
-  [key: string]: number | undefined;
+interface Vault {
+  uri: string;
+  title: string;
+  description: string;
+  section: string;
+  ConditionType: string;
+  conditionId: string;
+  conditionValue: number;
+  isEnabled: boolean;
 }
 
+interface VaultsCollection {
+  [vaultId: string]: Vault;
+}
+
+interface VaultUserDetails {
+upgradePrice: number | undefined;
+currentProfitPerHour: number;
+profitPerHourDelta: number;
+currentLevel: number;
+[key: string]: number | undefined;
+}
+
+function Vaults() {
 
   const confData = useContext(ConfDataContext);
   if (!confData) {
       throw new Error('Expected confData to be defined');
   }
-  
+  const apiToken = useContext(AppContext);
+
+  const token = apiToken?.body
+
+  const {data, isLoading, isError, refetch} = useSyncData(token)
+
+  console.log("quey sync", data)
+
+  if (isLoading){
+    return <Loader />
+  }
+ 
   const vaultsConfData: VaultsCollection = confData.vaults as VaultsCollection;
-  
-  // console.log(vaultsConfData)
-  const rawSyncData = useContext(SyncDataContext)
-
-  const syncData = JSON.parse(rawSyncData?.Body)
-
+  const syncData = JSON.parse(data?.Body)
   const vaultsUserData: VaultUserDetails = syncData.upgrades
-
-  console.log(vaultsUserData)
 
   return (
     <DefaultLayout >
@@ -71,7 +76,7 @@ interface VaultUserDetails {
               price={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.upgradePrice : undefined}
               id={key}
               earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.currentProfitPerHour : undefined}
-              updateVault='update vault cost'
+              profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.profitPerHourDelta : undefined}
             />
             </motion.div>
           ))}

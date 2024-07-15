@@ -2,21 +2,10 @@ import { baseUrl } from "./constants"
 
 
 
-export async function getAllData(){
-  const res = await fetch (`${baseUrl}/clickerUser`)
-  return res.json()
-}
-
-export async function getSyncData(apiToken){
-  const res = await fetch(`${baseUrl}/sync`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiToken}`
-    }
-  })
-  return res.json()
-}
+// export async function getAllData(){
+//   const res = await fetch (`${baseUrl}/clickerUser`)
+//   return res.json()
+// }
 
 export async function getAuth(initSessionData) {
   try {
@@ -40,6 +29,19 @@ export async function getAuth(initSessionData) {
   }
 }
 
+export async function getSyncData(apiToken) {
+  const res = await fetch(`${baseUrl}/sync`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiToken}`, 
+    }
+  });
+  console.log("apitoken function", apiToken)
+  return res.json();
+}
+  
+
 export async function getConfData() {
   try {
       const res = await fetch(`${baseUrl}/conf`);
@@ -57,25 +59,15 @@ export async function getConfData() {
   }
 }
 
-export async function updateVaults({id}){
-    const res = await fetch(`${baseUrl}/upgradesForBuy/${id}`, {
+export async function updateVaults({apiToken, id}){
+    const res = await fetch(`${baseUrl}/upgrade`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiToken}`
       },
       body: {
-        "id": "support_team_post",
-        "name": "Support team2 post",
-        "price": 1024,
-        "profitPerHour": 907,
-        "condition": null,
-        "section": "PR&Team",
-        "level": 10,
-        "currentProfitPerHour": 878,
-        "profitPerHourDelta": 129,
-        "isAvailable": true,
-        "isExpired": false,
-        "img": "src/assets/btc-eth-lp.png"
+        "id": id,
       },
     });
     return res.json()

@@ -12,6 +12,8 @@ import Dashboard from "../src/pages/Dashboard";
 import Vaults from "../src/pages/Vaults";
 import Referrals from "../src/pages/Referral";
 import Missions from "../src/pages/Missions";
+import PagesIndex from "./pages/PagesIndex";
+
 
 function App() {
   const [apiToken, setApiToken] = useState()
@@ -23,7 +25,6 @@ function App() {
 
   const tgData = window.Telegram.WebApp
   const initSessionData = tgData.initData
-
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -37,6 +38,7 @@ function App() {
   
         // Fetch API Token
         const apiTokenData = await getAuth('user=%7B%22id%22%3A6915997019%2C%22first_name%22%3A%22LePezoun%22%2C%22last_name%22%3A%22%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=447728990447128365&chat_type=private&auth_date=1720541535&hash=5232c3496c02e894d81368bf23565bcf1e2a7d2ef4c3f5a42a2b4e761a909113');
+        
         setApiToken(apiTokenData);
   
         // After setting the API token, fetch sync data
@@ -81,27 +83,27 @@ function App() {
       <ConfDataContext.Provider value={confData}>
         <SyncDataContext.Provider value={syncData}>
           <QueryClientProvider client={queryClient}>
-            <Router>
-            <Routes>
-              <Route
-                index
-                element={<Dashboard />}
-              />
-              <Route
-                path="/vaults"
-                element={<Vaults />}
-              />
-              <Route
-                path="/missions"
-                element={<Missions />}
-              />
-              <Route
-                path="/referrals"
-                element={<Referrals />}
-              />
-
-            </Routes>
-          </Router>
+            {/* <Router>
+              <Routes>
+                <Route
+                  index
+                  element={<Dashboard />}
+                />
+                <Route
+                  path="/vaults"
+                  element={<Vaults />}
+                />
+                <Route
+                  path="/missions"
+                  element={<Missions />}
+                />
+                <Route
+                  path="/referrals"
+                  element={<Referrals />}
+                />
+              </Routes>
+            </Router> */}
+            <PagesIndex />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </SyncDataContext.Provider>
