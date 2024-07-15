@@ -1,0 +1,20 @@
+[
+  {
+    "uri": "http://photo.display/",
+    "externalURL": "http://google.com",
+    "title": "title of first article",
+    "description": "descri[tiopn or content to display about the news",
+    "createdAt": "2024-07-06T16:46:00Z",
+    "pinned": true,
+    "isEnabled": true
+  },
+  {
+    "uri": "http://photo.display/",
+    "externalURL": "http://google.com",
+    "title": "Second article title",
+    "description": "text for second article",
+    "createdAt": "2024-07-07T14:26:00Z",
+    "pinned": false,
+    "isEnabled": true
+  }
+]
