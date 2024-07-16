@@ -3,9 +3,6 @@ import Dashboard from "./Dashboard";
 import Vaults from "./Vaults";
 import Referrals from "./Referral";
 import Missions from "./Missions";
-import { useSyncData } from "../react-query/useSyncData";
-import { useContext } from "react";
-import { AppContext } from "../state-management/context";
 
 function PagesIndex() {
 
