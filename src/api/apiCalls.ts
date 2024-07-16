@@ -67,7 +67,7 @@ export async function updateVaults({apiToken, id}){
         'Authorization': `Bearer ${apiToken}`
       },
       body: {
-        "id": id,
+        "upgrade": id,
       },
     });
     return res.json()
