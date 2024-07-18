@@ -1,11 +1,21 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { AppContext } from '../state-management/context';
+import { useSyncData } from '../react-query/useSyncData';
 
 
 function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, earnings, id, profitPerHourDelta}) {
 
   const [open, setOpen] = useState(isPopupOpen || false)
+  const [vaultId, setVaultId] = useState('')
+  
+  const apiToken = useContext(AppContext);
 
+  const token = apiToken?.body
+
+  const {data, isLoading, isError, refetch} = useSyncData(token)
+
+  console.log("data", data)
   const onInvestClick = (id) => {
     setOpen(false)
     console.log(id)
@@ -25,11 +35,11 @@ function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, e
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition>
 
         <div className="fixed inset-0 z-10 mb-20 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-full p-4 text-center">
+          <div className="flex min-h-full items-end justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -39,13 +49,13 @@ function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, e
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-4"
             >
-              <div className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform shadow-xl rounded-xl bg-neutral-950">
+              <div className="relative transform overflow-hidden rounded-xl bg-neutral-950 px-4 pb-4 pt-5 text-left shadow-xl transition-all">
                 <div>
-                  <div className="flex items-center justify-center w-24 h-24 mx-auto ">
+                  <div className="mx-auto flex h-24 w-24 items-center justify-center">
                     <img className='rounded-full' src={img}/>
                   </div>
                   <div className="mt-3 text-center">
-                    <h3 className="mb-4 text-2xl font-semibold leading-6 ">
+                    <h3 className="mb-4 text-2xl font-semibold leading-6">
                       {name}
                     </h3>
                     <div className="mt-2">
@@ -57,10 +67,10 @@ function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, e
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center mt-5">
+                <div className="mt-5 flex items-center justify-center">
                   <button
                     type="button"
-                    className="inline-flex justify-center w-2/4 px-3 py-3 mb-4 text-xl font-semibold text-white bg-indigo-600 shadow-sm rounded-xl"
+                    className="mb-4 inline-flex w-2/4 justify-center rounded-xl bg-indigo-600 px-3 py-3 text-xl font-semibold text-white shadow-sm"
                     onClick={() => onInvestClick(id)}
                   >
                     Invest 

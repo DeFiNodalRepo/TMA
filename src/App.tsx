@@ -13,6 +13,7 @@ import Vaults from "../src/pages/Vaults";
 import Referrals from "../src/pages/Referral";
 import Missions from "../src/pages/Missions";
 import PagesIndex from "./pages/PagesIndex";
+import { useSyncData } from "./react-query/useSyncData";
 
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
   
     fetchData();
   }, [initSessionData]);
+
+
 
   console.log("conf", confData);
   console.log("syncData", syncData)

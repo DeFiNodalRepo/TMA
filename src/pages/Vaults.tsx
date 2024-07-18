@@ -1,12 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
-import { getVaults } from '../api/apiCalls';
-import CardTabs from '../components/CardTabs';
 import { useContext } from 'react';
-import { AppContext, ConfDataContext, IVault, SyncDataContext } from '../state-management/context';
+import { AppContext, ConfDataContext } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import Loader from '../components/Loader';
 
@@ -44,12 +40,16 @@ function Vaults() {
 
   const token = apiToken?.body
 
-  const {data, isLoading, isError, refetch} = useSyncData(token)
+  const {data, isLoading, isError, refetch} = useSyncData(token, "")
 
   console.log("quey sync", data)
 
   if (isLoading){
     return <Loader />
+  }
+
+  if (isError){
+    <Loader />
   }
  
   const vaultsConfData: VaultsCollection = confData.vaults as VaultsCollection;

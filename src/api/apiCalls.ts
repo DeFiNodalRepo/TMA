@@ -29,13 +29,14 @@ export async function getAuth(initSessionData) {
   }
 }
 
-export async function getSyncData(apiToken) {
+export async function getSyncData(apiToken, upgradeId='') {
   const res = await fetch(`${baseUrl}/sync`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiToken}`, 
-    }
+    },
+    body: JSON.stringify({ upgrade: upgradeId }),
   });
   console.log("apitoken function", apiToken)
   return res.json();

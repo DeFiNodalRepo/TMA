@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSyncData } from "../api/apiCalls";
 
-export function useSyncData(apiToken){
+export function useSyncData(apiToken, upgradeId){
     try {
       const { data, isError, isLoading } = useQuery({
         queryKey: ['sync'],
-        queryFn: () => getSyncData(apiToken),
+        queryFn: () => getSyncData(apiToken, upgradeId),
         staleTime:  60 * 1000,
         // refetchOnMount: false,
         onError: (error) => {
