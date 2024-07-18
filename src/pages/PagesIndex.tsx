@@ -8,9 +8,7 @@ import { AppContext } from "../state-management/context";
 import { useContext } from "react";
 import Loader from "../components/Loader";
 
-function PagesIndex() {
-
-  const apiToken = useContext(AppContext);
+function PagesIndex({apiToken}) {
 
   const token = apiToken?.body
 

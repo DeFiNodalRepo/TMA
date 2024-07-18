@@ -36,7 +36,7 @@ export async function getSyncData(apiToken, upgradeId='') {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiToken}`, 
     },
-    body: JSON.stringify({ upgrade: upgradeId }),
+    body: JSON.stringify({ upgradeId: upgradeId }),
   });
   console.log("apitoken function", apiToken)
   return res.json();

@@ -13,13 +13,18 @@ function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, e
 
   const token = apiToken?.body
 
-  const {data, isLoading, isError, refetch} = useSyncData(token)
+  const {data, isLoading, isError, refetch} = useSyncData(token, "ETHVault")
 
   console.log("data", data)
   const onInvestClick = (id) => {
     setOpen(false)
-    console.log(id)
+    // console.log(id)
+    setVaultId(id)
+    refetch()
+    // setVaultId('')
   }
+
+  console.log(vaultId)
 
   // console.log(profitPerHourDelta)
 

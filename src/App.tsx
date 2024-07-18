@@ -64,8 +64,6 @@ function App() {
     fetchData();
   }, [initSessionData]);
 
-
-
   console.log("conf", confData);
   console.log("syncData", syncData)
 
@@ -74,7 +72,6 @@ function App() {
   }
 
   if (error) {
-    // return <Loader />;
     return <div>Error: {error}</div>;
   }
 
@@ -106,7 +103,7 @@ function App() {
                 />
               </Routes>
             </Router> */}
-            <PagesIndex />
+            <PagesIndex apiToken={apiToken}/>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </SyncDataContext.Provider>
