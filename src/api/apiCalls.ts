@@ -30,7 +30,7 @@ export async function getAuth(initSessionData) {
 }
 
 export async function getSyncData(apiToken, upgradeId='') {
-  const res = await fetch(`${baseUrl}/sync`, {
+  const res = await fetch(`${baseUrl}/upgrade`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

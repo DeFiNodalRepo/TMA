@@ -43,10 +43,10 @@ function App() {
         setApiToken(apiTokenData);
   
         // After setting the API token, fetch sync data
-        if (apiTokenData) {
-          const syncData = await getSyncData(apiTokenData.body);
-          setSyncData(syncData);
-        }
+        // if (apiTokenData) {
+        //   const syncData = await getSyncData(apiTokenData.body);
+        //   setSyncData(syncData);
+        // }
   
         // Fetch configuration data
         const conf = await getConfData();
