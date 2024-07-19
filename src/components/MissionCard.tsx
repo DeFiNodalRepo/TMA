@@ -1,34 +1,3 @@
-
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { Missions, Mission } from '../pages/Missions'
-
-const statuses = {
-  Paid: 'text-green-700 bg-green-50 ring-green-600/20',
-  Withdraw: 'text-gray-600 bg-gray-50 ring-gray-500/10',
-  Overdue: 'text-red-700 bg-red-50 ring-red-600/10',
-}
-const clients = [
-  {
-    id: 1,
-    name: 'Tuple',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/tuple.svg',
-    lastInvoice: { date: 'December 13, 2022', dateTime: '2022-12-13', amount: '$2,000.00', status: 'Overdue' },
-  },
-  {
-    id: 2,
-    name: 'SavvyCal',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/savvycal.svg',
-    lastInvoice: { date: 'January 22, 2023', dateTime: '2023-01-22', amount: '$14,000.00', status: 'Paid' },
-  },
-  {
-    id: 3,
-    name: 'Reform',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/reform.svg',
-    lastInvoice: { date: 'January 23, 2023', dateTime: '2023-01-23', amount: '$7,600.00', status: 'Paid' },
-  },
-]
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -48,35 +17,39 @@ interface Missions {
 }
 
 
+export default function MissionCard({missions, syncMissions, onSelectMission}: Missions) {
 
-export default function MissionCard({missions}: Missions) {
-  
   const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true)
 
   const expiredMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled ===false)
 
+  const handleMissionClick = (key) => {
+    onSelectMission(key);
+  }
+
   return (
     <>
       <h1 className='my-4 text-2xl'>Active Missions</h1>
-      {/* <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30">
+      {/* <div className="flex max-w-md my-2 overflow-hidden bg-gray-900 border border-gray-700 rounded-lg shadow-md shadow-blue-900/30">
 
       </div> */}
     <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-8">
       {activeMissions.map(([key, mission]) => (
-        <li key={key} className="overflow-hidden rounded-xl border border-gray-700">
-          <div className="flex items-center gap-x-4 p-2">
+        <li key={key} className="overflow-hidden border border-gray-700 rounded-xl" onClick={() => handleMissionClick(key)}>
+          <div className="flex items-center p-2 gap-x-4">
+            {syncMissions[key]?.isCompleted ? <p>Completed</p> : <p>Not yet</p>}
             <img
               src={mission.externalURL}
               alt={mission.title}
-              className="h-12 w-12 flex-none rounded-lg object-cover"
+              className="flex-none object-cover w-12 h-12 rounded-lg"
             />
             <div className="text-sm font-medium ">{mission.title}</div>
           </div>
-          <dl className="-my-3 px-2 py-2 text-sm leading-6">
-            <div className="flex justify-between gap-x-4 py-3">
+          <dl className="px-2 py-2 -my-3 text-sm leading-6">
+            <div className="flex justify-between py-3 gap-x-4">
               <dt className="text-amber-600">Reward</dt>
               <dd className="text-gray-300">{mission.reward}</dd>
-              <dt className="text-sky-600 font-semibold">Amount</dt>
+              <dt className="font-semibold text-sky-600">Amount</dt>
               <dd className="text-gray-300">{mission.reward}</dd>
             </div>
           </dl>
@@ -87,24 +60,24 @@ export default function MissionCard({missions}: Missions) {
     <h1 className='my-4 text-2xl'>Expired Missions</h1>
     <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-8">
       {expiredMissions.map(([key, mission]) => (
-        <li key={key} className="overflow-hidden rounded-xl border border-gray-700">
-          <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-500 p-6">
+        <li key={key} className="overflow-hidden border border-gray-700 rounded-xl">
+          <div className="flex items-center p-6 bg-gray-500 border-b gap-x-4 border-gray-900/5">
             <img
               src={mission.externalURL}
               alt={mission.title}
-              className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+              className="flex-none object-cover w-12 h-12 bg-white rounded-lg ring-1 ring-gray-900/10"
             />
             <div className="text-sm font-medium leading-6 text-gray-900">{mission.title}</div>
 
           </div>
-          <dl className="-my-3 divide-y divide-gray-800 px-6 py-4 text-sm leading-6">
-            <div className="flex justify-between gap-x-4 py-3">
+          <dl className="px-6 py-4 -my-3 text-sm leading-6 divide-y divide-gray-800">
+            <div className="flex justify-between py-3 gap-x-4">
               <dt className="text-gray-500">Reward</dt>
               <dd className="text-gray-700">{mission.reward}
                 {/* <time dateTime={mission.reward}>{mission.title}</time> */}
               </dd>
             </div>
-            <div className="flex justify-between gap-x-4 py-3">
+            <div className="flex justify-between py-3 gap-x-4">
               <dt className="text-gray-500">Amount</dt>
               <dd className="flex items-start gap-x-2">
                 <div className="text-gray-700">{mission.reward}</div>

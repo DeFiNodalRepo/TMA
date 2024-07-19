@@ -41,12 +41,7 @@ function App() {
         const apiTokenData = await getAuth('user=%7B%22id%22%3A6915997019%2C%22first_name%22%3A%22LePezoun%22%2C%22last_name%22%3A%22%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=447728990447128365&chat_type=private&auth_date=1720541535&hash=5232c3496c02e894d81368bf23565bcf1e2a7d2ef4c3f5a42a2b4e761a909113');
         
         setApiToken(apiTokenData);
-  
-        // After setting the API token, fetch sync data
-        // if (apiTokenData) {
-        //   const syncData = await getSyncData(apiTokenData.body);
-        //   setSyncData(syncData);
-        // }
+
   
         // Fetch configuration data
         const conf = await getConfData();
@@ -64,8 +59,8 @@ function App() {
     fetchData();
   }, [initSessionData]);
 
-  console.log("conf", confData);
-  console.log("syncData", syncData)
+  // console.log("conf", confData);
+  // console.log("syncData", syncData)
 
   if (isLoading) {
     return <Loader />;

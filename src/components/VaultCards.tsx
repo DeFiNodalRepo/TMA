@@ -1,16 +1,33 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CardPopUp from '../components/CardPopUp'
+import { AppContext } from '../state-management/context';
+import { useSyncData } from '../react-query/useSyncData';
 
 function VaultCards({ img, name, description, currentLevel, price, id, earnings, profitPerHourDelta }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [vaultId, setVaultId] = useState("")
+
+    
+  const apiToken = useContext(AppContext);
+  const token = apiToken?.body
+
+  const onInvestClick = (selectedVault) => {
+    console.log("setvaut Id", selectedVault)
+    // setIsPopupOpen(false)
+    setVaultId(selectedVault)
+  }
+
+  console.log("Updated vaultId:", vaultId);
+
+  const {data, isLoading, isError, refetch} = useSyncData(token, vaultId)
+
+  console.log(data)
 
   function handlePopUpToggle() {
     setIsPopupOpen(!isPopupOpen)
   }
 
-  // console.log(currentLevel)
-
-  const popup = isPopupOpen && <CardPopUp img={img} name={name} description={description} currentLevel={currentLevel} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} />
+  const popup = isPopupOpen && <CardPopUp img={img} name={name} description={description} currentLevel={currentLevel} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} onInvestClick={onInvestClick} />
 
   return (
 

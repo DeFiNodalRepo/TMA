@@ -1,8 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import MissionCard from '../components/MissionCard';
 import DefaultLayout from '../layout/DefaultLayout'
-import { ConfDataContext } from '../state-management/context';
+import { AppContext, ConfDataContext } from '../state-management/context';
+import { useSyncData } from '../react-query/useSyncData';
+import { useMutation } from '@tanstack/react-query';
+import { getSyncData } from '../api/apiCalls';
 
 export interface Mission {
   uri: string;
@@ -21,31 +24,63 @@ interface Missions {
 
 
 function Missions() {
+  const [userData, setUserData] = useState('')
+  const [selectedMission, setSellectMission] = useState('')
+
+  const apiToken = useContext(AppContext);
+
+  const token = apiToken?.body
+
+  const {data, isLoading, isError, refetch} = useSyncData(token, "cash")
+
+  const mutation = useMutation({
+    mutationFn: (selectedMission) => getSyncData(token, selectedMission),
+    onSuccess: (data) => {
+      // Handle successful response
+      setUserData(data)
+      console.log('Mission data posted successfully:', userData);
+    },
+    onError: (error) => {
+      // Handle error
+      console.error('Error posting mission data:', error);
+    }
+  });
+
+  const handleMissionSelect = (missionId) => {
+    mutation.mutate(missionId);
+  };
 
   const confData = useContext(ConfDataContext)
 
   const missions = confData?.missions;
 
-  console.log(missions)
-
   if (!confData || !confData.missions) {
     return <Loader />
   }
 
+  if (isLoading){
+    return <Loader />
+  }
+
+  if (isError){
+    <Loader />
+  }
+
+
+
+  console.log("selecte mission", selectedMission)
+
+  const syncData = JSON.parse(data?.Body)
+
+  const syncMissions = syncData.missions
+
+  
+  console.log("usedata", userData)
+
+
   return (
     <DefaultLayout >
-        {/* {Object.entries(missions).map(([missionName, mission]) => (
-          <div key={missionName}>
-            <h3 className='text-white'>{mission.title}</h3>
-            <p>{mission.description}</p>
-            <a href={mission.externalURL}>Learn More</a>
-            <p>Reward: {mission.reward}</p>
-            <p>Expires At: {new Date(mission.ExpiresAt).toLocaleString()}</p>
-            <p>Status: {mission.isEnabled ? 'Enabled' : 'Disabled'}</p>
-          </div>
-        ))} */}
-        <MissionCard missions={missions} />
-        {/* {Object.entries(missions).map(([key, mission]) => (<MissionCard key={missionNme} mission={mission}/>))} */}
+        <MissionCard missions={missions} syncMissions={syncMissions} onSelectMission={handleMissionSelect}/>
     </DefaultLayout>
   )
 }

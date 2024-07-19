@@ -42,8 +42,6 @@ function Vaults() {
 
   const {data, isLoading, isError, refetch} = useSyncData(token, "")
 
-  console.log("quey sync", data)
-
   if (isLoading){
     return <Loader />
   }

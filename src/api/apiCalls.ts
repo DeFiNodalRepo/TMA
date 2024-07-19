@@ -36,9 +36,12 @@ export async function getSyncData(apiToken, upgradeId='') {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiToken}`, 
     },
-    body: JSON.stringify({ upgradeId: upgradeId }),
+    body: JSON.stringify({ upgradeId: "Cash" }),
   });
-  console.log("apitoken function", apiToken)
+
+  if (!res.ok) {
+    throw new Error('Network response was not ok')
+  }
   return res.json();
 }
   

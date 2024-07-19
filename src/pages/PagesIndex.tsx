@@ -22,8 +22,6 @@ function PagesIndex({apiToken}) {
     <Loader />
   }
 
-  console.log("datadatadatadatadatadatadatadatadatadatadatadatadatadata",data)
-
   return (
     <Router>
       <Routes>

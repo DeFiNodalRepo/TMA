@@ -26,8 +26,6 @@ function DashboardCryptoStats() {
     return <div>Err</div>
   }
 
-  // console.log(data)
-
   return (
     <div>
       <h3 className="text-2xl leading-6 text-gray-300">Market Move</h3>
