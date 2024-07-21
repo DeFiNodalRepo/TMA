@@ -5,21 +5,16 @@ import { useEffect, useState } from "react";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from '../src/react-query/queryClient'
-import { getAuth, getConfData, getInitData, getSyncData } from "./api/apiCalls";
-import { AppContext, ConfDataContext, InitUserContext, SyncDataContext } from "./state-management/context";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dashboard from "../src/pages/Dashboard";
-import Vaults from "../src/pages/Vaults";
-import Referrals from "../src/pages/Referral";
-import Missions from "../src/pages/Missions";
+import { getAuth, getConfData, getInitData } from "./api/apiCalls";
+import { AppContext, InitUserContext, SyncDataProvider } from "./state-management/context";
+
 import PagesIndex from "./pages/PagesIndex";
-import { useSyncData } from "./react-query/useSyncData";
+
 
 
 function App() {
   const [apiToken, setApiToken] = useState()
   const [initUserData, setInitUserData] = useState()
-  const [syncData, setSyncData] = useState()
   const [confData, setConfData] = useState()
   const [loading, setLoading] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,10 +78,12 @@ function App() {
   ) : (
     <AppContext.Provider value={apiToken}>
       <InitUserContext.Provider value={initUserData}>
-        <QueryClientProvider client={queryClient}>
-          <PagesIndex apiToken={apiToken}/>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <SyncDataProvider>
+          <QueryClientProvider client={queryClient}>
+            <PagesIndex apiToken={apiToken}/>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </SyncDataProvider>
       </InitUserContext.Provider>
     </AppContext.Provider>
   );

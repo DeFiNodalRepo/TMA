@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
 import { useContext, useEffect, useState } from 'react';
-import { AppContext, ConfDataContext, InitUserContext } from '../state-management/context';
+import { AppContext, ConfDataContext, InitUserContext, useContextSyncData } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import Loader from '../components/Loader';
 import { useMutation } from '@tanstack/react-query';
@@ -35,26 +35,35 @@ currentLevel: number;
 function Vaults() {
 
   const [vaultId, setVaultId] = useState("")
-
+  
   const userData = useContext(InitUserContext)
   const authData = useContext(AppContext)
   const token = authData.body
 
   const {data, isError, isLoading, refetch} = useSyncData(token)
 
+  const {syncData, setSyncData} = useContextSyncData(token)
+
   const mutation = useMutation({
     mutationFn: (vaultId) => getSyncData(token, vaultId),
     onSuccess: (data) => {
-      console.log('Sync data fetched successfully:', data);
-      refetch();
+      setSyncData(data)
+      // refetch();
       }
     })
+
+    // console.log(data)
+    if (mutation.isSuccess){
+      console.log("token", token)
+      console.log("selectedVault", vaultId)
+    console.log("mutation.data", mutation.data)}
 
   const onInvestClick = (selectedVault) => {
     console.log("setvaut Id", selectedVault)
     // setIsPopupOpen(false)
     setVaultId(selectedVault)
-    mutation.mutate(token, selectedVault)
+    console.log("selectedVault", selectedVault)
+    mutation.mutate(selectedVault)
   }
 
   if (!userData) {
@@ -74,8 +83,17 @@ function Vaults() {
     <Loader />
   }
 
+  console.log(userData)
+
   const confUser = JSON.parse(userData.conf)
-  const syncUser = JSON.parse(data.Body)
+
+  let syncUser
+
+  if (mutation.isSuccess){
+    syncUser = JSON.parse(mutation.data.Body)
+  } else {
+    syncUser = JSON.parse(data.Body)
+  }
 
   const vaultsConfData: VaultsCollection = confUser.vaults as VaultsCollection
   const vaultsUserData: VaultUserDetails = syncUser.upgrades
