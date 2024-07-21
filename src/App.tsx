@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from '../src/react-query/queryClient'
-import { getAuth, getConfData, getSyncData } from "./api/apiCalls";
-import { AppContext, ConfDataContext, SyncDataContext } from "./state-management/context";
+import { getAuth, getConfData, getInitData, getSyncData } from "./api/apiCalls";
+import { AppContext, ConfDataContext, InitUserContext, SyncDataContext } from "./state-management/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "../src/pages/Dashboard";
 import Vaults from "../src/pages/Vaults";
@@ -18,6 +18,7 @@ import { useSyncData } from "./react-query/useSyncData";
 
 function App() {
   const [apiToken, setApiToken] = useState()
+  const [initUserData, setInitUserData] = useState()
   const [syncData, setSyncData] = useState()
   const [confData, setConfData] = useState()
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,8 +43,17 @@ function App() {
         
         setApiToken(apiTokenData);
 
-  
-        // Fetch configuration data
+        const token = await apiTokenData?.body
+
+        console.log(token)
+
+        const initData = await getInitData(token)
+    
+        setInitUserData(initData)
+
+        console.log("initData", typeof initData)
+
+
         const conf = await getConfData();
         setConfData(conf);
   
@@ -59,9 +69,6 @@ function App() {
     fetchData();
   }, [initSessionData]);
 
-  // console.log("conf", confData);
-  // console.log("syncData", syncData)
-
   if (isLoading) {
     return <Loader />;
   }
@@ -75,34 +82,12 @@ function App() {
     <Loader />
   ) : (
     <AppContext.Provider value={apiToken}>
-      <ConfDataContext.Provider value={confData}>
-        <SyncDataContext.Provider value={syncData}>
-          <QueryClientProvider client={queryClient}>
-            {/* <Router>
-              <Routes>
-                <Route
-                  index
-                  element={<Dashboard />}
-                />
-                <Route
-                  path="/vaults"
-                  element={<Vaults />}
-                />
-                <Route
-                  path="/missions"
-                  element={<Missions />}
-                />
-                <Route
-                  path="/referrals"
-                  element={<Referrals />}
-                />
-              </Routes>
-            </Router> */}
-            <PagesIndex apiToken={apiToken}/>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </SyncDataContext.Provider>
-      </ConfDataContext.Provider>
+      <InitUserContext.Provider value={initUserData}>
+        <QueryClientProvider client={queryClient}>
+          <PagesIndex apiToken={apiToken}/>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </InitUserContext.Provider>
     </AppContext.Provider>
   );
 }

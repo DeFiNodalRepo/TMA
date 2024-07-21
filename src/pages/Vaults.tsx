@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
-import { useContext } from 'react';
-import { AppContext, ConfDataContext } from '../state-management/context';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext, ConfDataContext, InitUserContext } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import Loader from '../components/Loader';
+import { useMutation } from '@tanstack/react-query';
+import { getSyncData } from '../api/apiCalls';
 
 
 interface Vault {
@@ -32,27 +34,54 @@ currentLevel: number;
 
 function Vaults() {
 
-  const confData = useContext(ConfDataContext);
-  if (!confData) {
-      throw new Error('Expected confData to be defined');
+  const [vaultId, setVaultId] = useState("")
+
+  const userData = useContext(InitUserContext)
+  const authData = useContext(AppContext)
+  const token = authData.body
+
+  const {data, isError, isLoading, refetch} = useSyncData(token)
+
+  const mutation = useMutation({
+    mutationFn: (vaultId) => getSyncData(token, vaultId),
+    onSuccess: (data) => {
+      console.log('Sync data fetched successfully:', data);
+      refetch();
+      }
+    })
+
+  const onInvestClick = (selectedVault) => {
+    console.log("setvaut Id", selectedVault)
+    // setIsPopupOpen(false)
+    setVaultId(selectedVault)
+    mutation.mutate(token, selectedVault)
   }
-  const apiToken = useContext(AppContext);
 
-  const token = apiToken?.body
-
-  const {data, isLoading, isError, refetch} = useSyncData(token, "")
-
-  if (isLoading){
-    return <Loader />
+  if (!userData) {
+    return (
+      <DefaultLayout>
+        <h1>Something went wrong, our team is working on fixing the issue. If the issue persists please contact one of our team members via telegram</h1>
+        <Loader />
+      </DefaultLayout>
+    )
   }
 
   if (isError){
     <Loader />
   }
- 
-  const vaultsConfData: VaultsCollection = confData.vaults as VaultsCollection;
-  const syncData = JSON.parse(data?.Body)
-  const vaultsUserData: VaultUserDetails = syncData.upgrades
+
+  if (isLoading){
+    <Loader />
+  }
+
+  const confUser = JSON.parse(userData.conf)
+  const syncUser = JSON.parse(data.Body)
+
+  const vaultsConfData: VaultsCollection = confUser.vaults as VaultsCollection
+  const vaultsUserData: VaultUserDetails = syncUser.upgrades
+
+
+  console.log(token)
 
   return (
     <DefaultLayout >
@@ -75,6 +104,7 @@ function Vaults() {
               id={key}
               earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.currentProfitPerHour : undefined}
               profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.profitPerHourDelta : undefined}
+              onInvestClick={onInvestClick}
             />
             </motion.div>
           ))}

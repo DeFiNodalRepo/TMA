@@ -37,5 +37,4 @@ interface InitApiHash{
   }
 
 export const AppContext = createContext<InitApiHash | undefined>(undefined)
-export const ConfDataContext = createContext<IDataStructure | undefined>(undefined)
-export const SyncDataContext = createContext(undefined)
+export const InitUserContext = createContext(undefined)

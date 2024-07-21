@@ -4,7 +4,7 @@ import { AppContext } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 
 
-function CardPopUp({ isPopupOpen, img, name, description, currentLevel, price, earnings, id, profitPerHourDelta, onInvestClick}) {
+function CardPopUp({ isPopupOpen, img, name, description, price, earnings, id, profitPerHourDelta, onInvestClick}) {
   const [open, setOpen] = useState(isPopupOpen || false)
 
   return (

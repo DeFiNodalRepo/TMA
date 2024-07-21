@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import MissionCard from '../components/MissionCard';
 import DefaultLayout from '../layout/DefaultLayout'
-import { AppContext, ConfDataContext } from '../state-management/context';
+import { AppContext, ConfDataContext, InitUserContext } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import { useMutation } from '@tanstack/react-query';
 import { getSyncData } from '../api/apiCalls';
@@ -24,59 +24,58 @@ interface Missions {
 
 
 function Missions() {
-  const [userData, setUserData] = useState('')
   const [selectedMission, setSellectMission] = useState('')
 
-  const apiToken = useContext(AppContext);
+  const userData = useContext(InitUserContext)
+  const authData = useContext(AppContext)
 
-  const token = apiToken?.body
+  const token = authData.body
 
-  const {data, isLoading, isError, refetch} = useSyncData(token, "cash")
+  const {data, isError, isLoading, refetch} = useSyncData(token)
 
-  const mutation = useMutation({
-    mutationFn: (selectedMission) => getSyncData(token, selectedMission),
-    onSuccess: (data) => {
-      // Handle successful response
-      setUserData(data)
-      console.log('Mission data posted successfully:', userData);
-    },
-    onError: (error) => {
-      // Handle error
-      console.error('Error posting mission data:', error);
-    }
-  });
+  console.log(data.Body)
+
+  if (!userData) {
+    return (
+      <DefaultLayout>
+        <h1>Something went wrong, our team is working on fixing the issue. If the issue persists please contact one of our team members via telegram</h1>
+        <Loader />
+      </DefaultLayout>
+    )
+  }
+
+  const confUser = JSON.parse(userData.conf)
+  const syncUser = JSON.parse(data.Body)
+
+  const missionsConfData = confUser.missions
+  const missionsUserData = syncUser.missions
+
+  const missions = missionsConfData;
+
+  console.log("selecte mission", selectedMission)
+
+  const syncMissions = missionsUserData
+
+  // const apiToken = useContext(AppContext);
+
+  // const token = apiToken?.body
+
+  // const mutation = useMutation({
+  //   mutationFn: (selectedMission) => getSyncData(token, selectedMission),
+  //   onSuccess: (data) => {
+  //     // Handle successful response
+  //     setUserData(data)
+  //     console.log('Mission data posted successfully:', userData);
+  //   },
+  //   onError: (error) => {
+  //     // Handle error
+  //     console.error('Error posting mission data:', error);
+  //   }
+  // });
 
   const handleMissionSelect = (missionId) => {
     mutation.mutate(missionId);
   };
-
-  const confData = useContext(ConfDataContext)
-
-  const missions = confData?.missions;
-
-  if (!confData || !confData.missions) {
-    return <Loader />
-  }
-
-  if (isLoading){
-    return <Loader />
-  }
-
-  if (isError){
-    <Loader />
-  }
-
-
-
-  console.log("selecte mission", selectedMission)
-
-  const syncData = JSON.parse(data?.Body)
-
-  const syncMissions = syncData.missions
-
-  
-  console.log("usedata", userData)
-
 
   return (
     <DefaultLayout >
