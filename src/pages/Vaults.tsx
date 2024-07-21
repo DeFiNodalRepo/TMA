@@ -48,7 +48,6 @@ function Vaults() {
     mutationFn: (vaultId) => getSyncData(token, vaultId),
     onSuccess: (data) => {
       setSyncData(data)
-      // refetch();
       }
     })
 
@@ -92,6 +91,7 @@ function Vaults() {
   if (mutation.isSuccess){
     syncUser = JSON.parse(mutation.data.Body)
   } else {
+    // refetch();
     syncUser = JSON.parse(data.Body)
   }
 
