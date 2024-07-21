@@ -40,7 +40,7 @@ function Vaults() {
   const authData = useContext(AppContext)
   const token = authData.body
 
-  const {data, isError, isLoading, refetch} = useSyncData(token)
+  const {data, isError, isLoading} = useSyncData(token)
 
   const {syncData, setSyncData} = useContextSyncData(token)
 
@@ -86,14 +86,11 @@ function Vaults() {
 
   const confUser = JSON.parse(userData.conf)
 
-  let syncUser
+  let syncUser = JSON.parse(data.Body)
 
   if (mutation.isSuccess){
     syncUser = JSON.parse(mutation.data.Body)
-  } else {
-    // refetch();
-    syncUser = JSON.parse(data.Body)
-  }
+  } 
 
   const vaultsConfData: VaultsCollection = confUser.vaults as VaultsCollection
   const vaultsUserData: VaultUserDetails = syncUser.upgrades
