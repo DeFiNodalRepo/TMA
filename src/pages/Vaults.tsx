@@ -42,7 +42,7 @@ function Vaults() {
 
   const {data, isError, isLoading} = useSyncData(token)
 
-  const {syncData, setSyncData} = useContextSyncData(token)
+  const {setSyncData} = useContextSyncData(token)
 
   const mutation = useMutation({
     mutationFn: (vaultId) => getSyncData(token, vaultId),
@@ -86,6 +86,13 @@ function Vaults() {
 
   const confUser = JSON.parse(userData.conf)
 
+  if (mutation.isPending) {
+    return (
+      <DefaultLayout>
+        <Loader />  
+      </DefaultLayout>)
+  }
+
   let syncUser = JSON.parse(data.Body)
 
   if (mutation.isSuccess){
@@ -108,7 +115,7 @@ function Vaults() {
               initial={{ x: -100 }} // Start off-screen to the left
               animate={{ x: 0 }} // Move to original position
               exit={{ x: 100 }} // Slkeye out to the right
-              transition={{ duration: 0.12 * index }}
+              transition={{ duration: 0.05 * index }}
             >
             <VaultCards
               img={vault.uri}
