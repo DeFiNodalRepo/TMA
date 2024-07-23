@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import MissionCard from '../components/MissionCard';
 import DefaultLayout from '../layout/DefaultLayout'
-import { AppContext, ConfDataContext, InitUserContext } from '../state-management/context';
+import { AppContext, ConfDataContext, InitUserContext, useContextSyncData } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import { useMutation } from '@tanstack/react-query';
 import { getSyncData } from '../api/apiCalls';
@@ -33,6 +33,8 @@ function Missions() {
 
   const {data, isError, isLoading, refetch} = useSyncData(token)
 
+  const {setSyncData} = useContextSyncData()
+
   const mutation = useMutation({
     mutationFn: (selectedMission) => getSyncData(token, selectedMission),
     onSuccess: (data) => {
@@ -40,14 +42,6 @@ function Missions() {
       }
     })
 
-    // console.log(data)
-    if (mutation.isSuccess) {
-      console.log("token", token)
-      console.log("selectedVault", selectedMission)
-      console.log("mutation.data", mutation.data)
-    }
-
-  console.log(data.Body)
 
   if (!userData) {
     return (
@@ -63,29 +57,26 @@ function Missions() {
 
   const missionsConfData = confUser.missions
 
+  const handleMissionSelect = (missionId) => {
+    setSellectMission(missionId)
+    mutation.mutate(missionId)
+  };
+
   let missionsUserData
 
-  if (mutation.data) {
-    missionsUserData = JSON.parse(mutation.data.Body)
-  } else {
+  if (!mutation.data) {
     missionsUserData = syncUser.missions
+  } else {
+    missionsUserData = JSON.parse(mutation.data.Body)
   }
 
   const missions = missionsConfData;
 
-  const syncMissions = missionsUserData
-
-  const handleMissionSelect = (missionId) => {
-    console.log("setvaut Id", missionId)
-    // setIsPopupOpen(false)
-    setSellectMission(missionId)
-    console.log("selectedMission", missionId)
-    mutation.mutate(missionId)
-  };
+  console.log(missionsUserData)
 
   return (
     <DefaultLayout >
-        <MissionCard missions={missions} syncMissions={syncMissions} onSelectMission={handleMissionSelect}/>
+        <MissionCard missions={missions} syncMissions={missionsUserData} onSelectMission={handleMissionSelect}/>
     </DefaultLayout>
   )
 }

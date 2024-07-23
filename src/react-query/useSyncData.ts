@@ -8,7 +8,7 @@ export function useSyncData(apiToken, upgradeId=''){
         queryFn: () => getSyncData(apiToken, upgradeId),
         enabled: !!apiToken,
         // staleTime:  10 * 60 * 1000,
-        refetchOnMount: false,
+        // refetchOnMount: false,
         onError: (error) => {
           console.error("Failed to fetch sync data:", error);
         },

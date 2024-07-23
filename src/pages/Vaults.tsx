@@ -7,6 +7,7 @@ import { useSyncData } from '../react-query/useSyncData';
 import Loader from '../components/Loader';
 import { useMutation } from '@tanstack/react-query';
 import { getSyncData } from '../api/apiCalls';
+import { queryClient } from '../react-query/queryClient';
 
 
 interface Vault {
@@ -38,7 +39,7 @@ function Vaults() {
   
   const userData = useContext(InitUserContext)
   const authData = useContext(AppContext)
-  const token = authData.body
+  const token = authData?.body
 
   const {data, isError, isLoading} = useSyncData(token)
 
@@ -48,20 +49,13 @@ function Vaults() {
     mutationFn: (vaultId) => getSyncData(token, vaultId),
     onSuccess: (data) => {
       setSyncData(data)
+      // queryClient.invalidateQueries('sync');
+      // queryClient.setQueryData('sync', data);
       }
     })
 
-    // console.log(data)
-    if (mutation.isSuccess){
-      console.log("token", token)
-      console.log("selectedVault", vaultId)
-    console.log("mutation.data", mutation.data)}
-
   const onInvestClick = (selectedVault) => {
-    console.log("setvaut Id", selectedVault)
-    // setIsPopupOpen(false)
     setVaultId(selectedVault)
-    console.log("selectedVault", selectedVault)
     mutation.mutate(selectedVault)
   }
 
@@ -82,7 +76,7 @@ function Vaults() {
     <Loader />
   }
 
-  console.log(userData)
+  console.log("userData", userData)
 
   const confUser = JSON.parse(userData.conf)
 
