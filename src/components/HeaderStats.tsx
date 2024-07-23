@@ -1,7 +1,8 @@
 import { useContext } from "react"
-import { AppContext, SyncDataContext } from "../state-management/context"
+import { AppContext, SyncDataContext, useContextSyncData } from "../state-management/context"
 import { useSyncData } from "../react-query/useSyncData";
 import Loader from "./Loader";
+import { sync } from "framer-motion";
 
 const stats = [
   { name: 'Harvesting Rate', stat: '71,897', fontColor: 'text-amber-500' },
@@ -16,6 +17,15 @@ function HeaderStats() {
   const token = apiToken?.body
 
   const {data, isLoading, isError} = useSyncData(token, '')
+  const {syncData} = useContextSyncData()
+
+  let userHeaderParsed
+
+  if (syncData){
+      userHeaderParsed = JSON.parse(syncData.Body)
+    } else {
+      userHeaderParsed = JSON.parse(data?.Body)
+  }
 
   if(isLoading){
     return <Loader />
@@ -25,7 +35,7 @@ function HeaderStats() {
     <Loader />
   }
 
-  const userHeaderParsed = JSON.parse(data?.Body)
+  
 
   // const userRawHeader = useContext(SyncDataContext)
 

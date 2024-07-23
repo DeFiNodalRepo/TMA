@@ -33,6 +33,20 @@ function Missions() {
 
   const {data, isError, isLoading, refetch} = useSyncData(token)
 
+  const mutation = useMutation({
+    mutationFn: (selectedMission) => getSyncData(token, selectedMission),
+    onSuccess: (data) => {
+      setSyncData(data)
+      }
+    })
+
+    // console.log(data)
+    if (mutation.isSuccess) {
+      console.log("token", token)
+      console.log("selectedVault", selectedMission)
+      console.log("mutation.data", mutation.data)
+    }
+
   console.log(data.Body)
 
   if (!userData) {
@@ -48,33 +62,25 @@ function Missions() {
   const syncUser = JSON.parse(data.Body)
 
   const missionsConfData = confUser.missions
-  const missionsUserData = syncUser.missions
+
+  let missionsUserData
+
+  if (mutation.data) {
+    missionsUserData = JSON.parse(mutation.data.Body)
+  } else {
+    missionsUserData = syncUser.missions
+  }
 
   const missions = missionsConfData;
 
-  console.log("selecte mission", selectedMission)
-
   const syncMissions = missionsUserData
 
-  // const apiToken = useContext(AppContext);
-
-  // const token = apiToken?.body
-
-  // const mutation = useMutation({
-  //   mutationFn: (selectedMission) => getSyncData(token, selectedMission),
-  //   onSuccess: (data) => {
-  //     // Handle successful response
-  //     setUserData(data)
-  //     console.log('Mission data posted successfully:', userData);
-  //   },
-  //   onError: (error) => {
-  //     // Handle error
-  //     console.error('Error posting mission data:', error);
-  //   }
-  // });
-
   const handleMissionSelect = (missionId) => {
-    mutation.mutate(missionId);
+    console.log("setvaut Id", missionId)
+    // setIsPopupOpen(false)
+    setSellectMission(missionId)
+    console.log("selectedMission", missionId)
+    mutation.mutate(missionId)
   };
 
   return (
