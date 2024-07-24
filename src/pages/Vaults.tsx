@@ -76,8 +76,6 @@ function Vaults() {
     <Loader />
   }
 
-  console.log("userData", userData)
-
   const confUser = JSON.parse(userData.conf)
 
   if (mutation.isPending) {

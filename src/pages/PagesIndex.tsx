@@ -4,8 +4,6 @@ import Vaults from "./Vaults";
 import Referrals from "./Referral";
 import Missions from "./Missions";
 import { useSyncData } from "../react-query/useSyncData";
-import { AppContext } from "../state-management/context";
-import { useContext } from "react";
 import Loader from "../components/Loader";
 
 function PagesIndex({apiToken}) {
@@ -13,6 +11,8 @@ function PagesIndex({apiToken}) {
   const token = apiToken?.body
 
   const {data, isLoading, isError} = useSyncData(token, '')
+
+  console.log(data)
 
   if(isLoading){
     return <Loader />

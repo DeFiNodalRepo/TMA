@@ -28,12 +28,11 @@ function Missions() {
 
   const userData = useContext(InitUserContext)
   const authData = useContext(AppContext)
-
   const token = authData.body
 
   const {data, isError, isLoading, refetch} = useSyncData(token)
 
-  const {setSyncData} = useContextSyncData()
+  const {syncData, setSyncData} = useContextSyncData()
 
   const mutation = useMutation({
     mutationFn: (selectedMission) => getSyncData(token, selectedMission),
@@ -42,6 +41,10 @@ function Missions() {
       }
     })
 
+    const handleMissionSelect = (missionId) => {
+      setSellectMission(missionId)
+      mutation.mutate(missionId)
+    };
 
   if (!userData) {
     return (
@@ -52,33 +55,38 @@ function Missions() {
     )
   }
 
-  const confUser = JSON.parse(userData.conf)
-  const syncUser = JSON.parse(data.Body)
-
-  const missionsConfData = confUser.missions
-
-  const handleMissionSelect = (missionId) => {
-    setSellectMission(missionId)
-    mutation.mutate(missionId)
-  };
-
-  let missionsUserData
-
-  if (!mutation.data) {
-    missionsUserData = syncUser.missions
-  } else {
-    missionsUserData = JSON.parse(mutation.data.Body)
+  if (isError){
+    <Loader />
   }
 
-  const missions = missionsConfData;
+  if (isLoading){
+    <Loader />
+  }
 
-  console.log(missionsUserData)
+  const confUser = JSON.parse(userData.conf)
+  
+  if (mutation.isPending) {
+    return (
+      <DefaultLayout>
+        <Loader />  
+      </DefaultLayout>)
+  }
+  
+  let syncUser = JSON.parse(data.Body)
+
+  if (mutation.isSuccess){
+    syncUser = JSON.parse(mutation.data.Body)
+  } 
+
+  const missionsConfData = confUser.missions
+  const missionsUserData = syncUser.missions
 
   return (
     <DefaultLayout >
-        <MissionCard missions={missions} syncMissions={missionsUserData} onSelectMission={handleMissionSelect}/>
+        <MissionCard missions={missionsConfData} syncMissions={missionsUserData} onSelectMission={handleMissionSelect}/>
     </DefaultLayout>
   )
 }
 
 export default Missions
+

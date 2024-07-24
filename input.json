@@ -5,7 +5,7 @@
   "version": 1,
   "StoragePeriod": 10800,
   "InviteBonus": 100000,
-  "resetUser": false,
+  "resetUser": true,
   "vaults": {
     "BTCVault": {
       "id": "BTCVault",

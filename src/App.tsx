@@ -4,6 +4,7 @@ import Loader from "./components/Loader";
 import { useEffect, useState } from "react";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { initInitData } from '@telegram-apps/sdk';
 import { queryClient } from '../src/react-query/queryClient'
 import { getAuth, getConfData, getInitData } from "./api/apiCalls";
 import { AppContext, InitUserContext, SyncDataProvider } from "./state-management/context";
@@ -22,6 +23,10 @@ function App() {
 
   const tgData = window.Telegram.WebApp
   const initSessionData = tgData.initData
+
+  const initialData = initInitData();
+
+  console.log(initialData)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
