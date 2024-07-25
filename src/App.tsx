@@ -24,9 +24,11 @@ function App() {
   const tgData = window.Telegram.WebApp
   const initSessionData = tgData.initData
 
+  console.log("initSessionData", initSessionData)
+
   const initialData = initInitData();
 
-  console.log(initialData)
+  console.log("initialData sdk", initialData)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
