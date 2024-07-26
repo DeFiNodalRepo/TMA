@@ -1,18 +1,5 @@
-import React from 'react'
+import { NewsProps } from "../types"
 
-interface Article {
-    uri: string;
-    externalURL: string;
-    title: string;
-    description: string;
-    createdAt: string;
-    pinned: boolean;
-    isEnabled: boolean;
-  }
-
-  interface NewsProps {
-    news: Article[];
-  }
 function News({news}: NewsProps) {
 
   return (

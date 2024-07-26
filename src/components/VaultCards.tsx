@@ -1,20 +1,17 @@
 import { useState } from 'react'
 import CardPopUp from '../components/CardPopUp'
+import { VaultCardProps } from '../types'
 
 
-function VaultCards({ img, name, description, currentLevel, price, id, earnings, profitPerHourDelta, onInvestClick }) {
+function VaultCards({ img, name, description, currentLevel, price, id, earnings, profitPerHourDelta, onInvestClick }: VaultCardProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   function handlePopUpToggle() {
     setIsPopupOpen(!isPopupOpen)
   }
 
-  const popup = isPopupOpen && <CardPopUp img={img} name={name} description={description} currentLevel={currentLevel} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} onInvestClick={onInvestClick} />
-
   return (
-
     <div className="flex max-w-md my-2 overflow-hidden bg-gray-900 border border-gray-700 rounded-lg shadow-md shadow-blue-900/30" onClick={handlePopUpToggle}>
-      <CardPopUp show={open} />
       <div className="mx-2 my-2">
         <div className="grid items-center grid-cols-2 gap-2">
           <img className="w-16 h-16 rounded-lg" src={img} alt={name} />
@@ -28,7 +25,7 @@ function VaultCards({ img, name, description, currentLevel, price, id, earnings,
           <h1 className="text-sm ">Cost: {price}</h1>
         </div>
       </div>
-      {popup}
+      {isPopupOpen && <CardPopUp img={img} name={name} description={description} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} onInvestClick={onInvestClick} />}
     </div >
   )
 }

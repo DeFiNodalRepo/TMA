@@ -1,37 +1,13 @@
 import { motion } from 'framer-motion';
 import VaultCards from '../components/VaultCards'
 import DefaultLayout from '../layout/DefaultLayout'
-import { useContext, useEffect, useState } from 'react';
-import { AppContext, ConfDataContext, InitUserContext, useContextSyncData } from '../state-management/context';
+import { useContext, useState } from 'react';
+import { AppContext, InitUserContext, useContextSyncData } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import Loader from '../components/Loader';
 import { useMutation } from '@tanstack/react-query';
 import { getSyncData } from '../api/apiCalls';
-import { queryClient } from '../react-query/queryClient';
-
-
-interface Vault {
-  uri: string;
-  title: string;
-  description: string;
-  section: string;
-  ConditionType: string;
-  conditionId: string;
-  conditionValue: number;
-  isEnabled: boolean;
-}
-
-interface VaultsCollection {
-  [vaultId: string]: Vault;
-}
-
-interface VaultUserDetails {
-upgradePrice: number | undefined;
-currentProfitPerHour: number;
-profitPerHourDelta: number;
-currentLevel: number;
-[key: string]: number | undefined;
-}
+import { VaultConf, VaultSync } from '../types'
 
 function Vaults() {
 
@@ -46,7 +22,7 @@ function Vaults() {
   const {setSyncData} = useContextSyncData()
 
   const mutation = useMutation({
-    mutationFn: (vaultId) => getSyncData(token, vaultId),
+    mutationFn: () => getSyncData(token, vaultId),
     onSuccess: (data) => {
       setSyncData(data)
       // queryClient.invalidateQueries('sync');
@@ -54,7 +30,7 @@ function Vaults() {
       }
     })
 
-  const onInvestClick = (selectedVault) => {
+  const onInvestClick = (selectedVault: any) => {
     setVaultId(selectedVault)
     mutation.mutate(selectedVault)
   }
@@ -78,6 +54,8 @@ function Vaults() {
 
   const confUser = JSON.parse(userData.conf)
 
+  console.log(userData)
+
   if (mutation.isPending) {
     return (
       <DefaultLayout>
@@ -91,8 +69,8 @@ function Vaults() {
     syncUser = JSON.parse(mutation.data.Body)
   } 
 
-  const vaultsConfData: VaultsCollection = confUser.vaults as VaultsCollection
-  const vaultsUserData: VaultUserDetails = syncUser.upgrades
+  const vaultsConfData: VaultConf = confUser.vaults as VaultConf
+  const vaultsUserData: VaultSync = syncUser.upgrades
 
 
   console.log(token)
@@ -109,17 +87,17 @@ function Vaults() {
               exit={{ x: 100 }} // Slkeye out to the right
               transition={{ duration: 0.05 * index }}
             >
-            <VaultCards
-              img={vault.uri}
-              name={vault.title}
-              description={vault.description}
-              currentLevel={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.currentLevel : undefined}
-              price={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.upgradePrice : undefined}
-              id={key}
-              earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.currentProfitPerHour : undefined}
-              profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultUserDetails)?.profitPerHourDelta : undefined}
-              onInvestClick={onInvestClick}
-            />
+              <VaultCards
+                img={vault.uri}
+                name={vault.title}
+                description={vault.description}
+                currentLevel={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentLevel : undefined}
+                price={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.upgradePrice : undefined}
+                id={key}
+                earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentProfitPerHour : undefined}
+                profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.profitPerHourDelta : undefined}
+                onInvestClick={onInvestClick}
+              /> 
             </motion.div>
           ))}
         </div>

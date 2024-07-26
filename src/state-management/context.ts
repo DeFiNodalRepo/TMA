@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { createContext, ReactNode, useState } from "react";
+import { AppConf } from "../types";
 
 interface InitApiHash{
     body?:string,
@@ -27,18 +28,9 @@ interface InitApiHash{
     isEnabled: boolean;
   }
 
-  interface IDailyRewards {
-    [number];
-  }
-
-  interface IDataStructure {
-    vaults: Record<string, IVault>;
-    missions: Record<string, IMission[]>;
-    daily: IDailyRewards[];
-  }
-
 export const AppContext = createContext<InitApiHash | undefined>(undefined)
-export const InitUserContext = createContext(undefined)
+export const InitUserContext = React.createContext<AppConf | undefined>(undefined);
+
 
 interface SyncDataContextType {
   syncData: any | null;  // Replace 'any' with a more specific type if possible

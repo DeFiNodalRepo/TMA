@@ -1,10 +1,8 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { AppContext } from '../state-management/context';
-import { useSyncData } from '../react-query/useSyncData';
+import { CardPopUpProps } from '../types'
 
-
-function CardPopUp({ isPopupOpen, img, name, description, price, earnings, id, profitPerHourDelta, onInvestClick}) {
+function CardPopUp({ isPopupOpen, img, name, description, price, earnings, id, profitPerHourDelta, onInvestClick}: CardPopUpProps) {
   const [open, setOpen] = useState(isPopupOpen || false)
 
   return (
