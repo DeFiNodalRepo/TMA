@@ -18,6 +18,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // @ts-ignore
   const tgData = window.Telegram.WebApp
   const initSessionData = tgData.initData
 
