@@ -6,7 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     // silence errors on build
-    "noEmitOnError": false
+    "noEmitOnError": false,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
