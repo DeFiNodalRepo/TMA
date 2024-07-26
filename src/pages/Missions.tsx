@@ -1,47 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Loader from '../components/Loader';
 import MissionCard from '../components/MissionCard';
 import DefaultLayout from '../layout/DefaultLayout'
-import { AppContext, ConfDataContext, InitUserContext, useContextSyncData } from '../state-management/context';
+import { AppContext, InitUserContext, useContextSyncData } from '../state-management/context';
 import { useSyncData } from '../react-query/useSyncData';
 import { useMutation } from '@tanstack/react-query';
 import { getSyncData } from '../api/apiCalls';
-
-export interface Mission {
-  uri: string;
-  externalURL: string;
-  title: string;
-  description: string;
-  reward: number;
-  ExpiresAt: string;
-  isEnabled: boolean;
-}
-
-interface Missions {
-  [key: string]: Mission;
-}
-
-
 
 function Missions() {
   const [selectedMission, setSellectMission] = useState('')
 
   const userData = useContext(InitUserContext)
   const authData = useContext(AppContext)
-  const token = authData.body
+  const token = authData?.body
 
-  const {data, isError, isLoading, refetch} = useSyncData(token)
+  const {data, isError, isLoading} = useSyncData(token)
 
-  const {syncData, setSyncData} = useContextSyncData()
+  const {setSyncData} = useContextSyncData()
 
   const mutation = useMutation({
-    mutationFn: (selectedMission) => getSyncData(token, selectedMission),
+    mutationFn: () => getSyncData(token, selectedMission),
     onSuccess: (data) => {
       setSyncData(data)
       }
     })
 
-    const handleMissionSelect = (missionId) => {
+    const handleMissionSelect = (missionId: any) => {
       setSellectMission(missionId)
       mutation.mutate(missionId)
     };

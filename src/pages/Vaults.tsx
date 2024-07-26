@@ -25,8 +25,6 @@ function Vaults() {
     mutationFn: () => getSyncData(token, vaultId),
     onSuccess: (data) => {
       setSyncData(data)
-      // queryClient.invalidateQueries('sync');
-      // queryClient.setQueryData('sync', data);
       }
     })
 

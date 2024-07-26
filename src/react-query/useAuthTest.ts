@@ -4,13 +4,12 @@ import { getAuth } from "../api/apiCalls";
 
   
 
-export function useAuth(){
-
-  const {data, isError, isLoading} = useQuery({
-    queryKey: ['auth'],
-    queryFn: getAuth,
+export function useAuth(initSessionData: string) {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['auth', initSessionData],
+    queryFn: () => getAuth(initSessionData),
     staleTime: 50 * 60 * 1000,
     refetchOnMount: false
-  })
-  return {data, isError, isLoading}
+  });
+  return { data, isError, isLoading };
 }

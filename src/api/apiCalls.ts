@@ -1,13 +1,6 @@
 import { baseUrl } from "./constants"
 
-
-
-// export async function getAllData(){
-//   const res = await fetch (`${baseUrl}/clickerUser`)
-//   return res.json()
-// }
-
-export async function getAuth(initSessionData) {
+export async function getAuth(initSessionData: string) {
   try {
       const res = await fetch(`${baseUrl}/authorise`, {
           method: 'POST',
@@ -29,7 +22,7 @@ export async function getAuth(initSessionData) {
   }
 }
 
-export async function getInitData(apiToken) {
+export async function getInitData(apiToken: string) {
   const res = await fetch(`${baseUrl}/initialise`, {
     method: 'GET',
     headers: {
@@ -41,7 +34,7 @@ export async function getInitData(apiToken) {
 }
 
 
-export async function getSyncData(apiToken, upgradeId='') {
+export async function getSyncData(apiToken: string | undefined, upgradeId='') {
   const res = await fetch(`${baseUrl}/upgrade`, {
     method: 'POST',
     headers: {
@@ -75,7 +68,7 @@ export async function getConfData() {
   }
 }
 
-export async function updateVaults({apiToken, id}){
+export async function updateVaults({apiToken, id}: {apiToken: string, id: string}){
     const res = await fetch(`${baseUrl}/upgrade`, {
       method: 'POST',
       headers: {

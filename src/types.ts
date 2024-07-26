@@ -39,6 +39,26 @@ export interface VaultCardProps extends CardPopUpProps {
   currentLevel: number | undefined;
 }
 
+export interface Mission {
+  uri: string;
+  externalURL: string;
+  title: string;
+  description: string;
+  reward: number;
+  ExpiresAt: string;
+  isEnabled: boolean;
+}
+
+export interface Missions extends Mission{
+  key: string;
+}
+
+export interface MissionsProps {
+  missions: Record<string, Mission>;
+  syncMissions: Record<string, any>; 
+  onSelectMission: (key: string) => void; 
+}
+
 interface Article {
   uri: string;
   externalURL: string;
@@ -51,4 +71,14 @@ interface Article {
 
 export interface NewsProps {
   news: Article[];
+}
+
+export interface CryptoStats {
+  id: string;
+  image: string;
+  symbol: string;
+  current_price: number;
+  price_change_percentage_24h: string;
+  changeType: 'increase' | 'decrease';
+  change: number;
 }

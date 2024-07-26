@@ -1,15 +1,16 @@
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { getCryptoStats } from '../api/apiCalls'
 import { useQuery } from "@tanstack/react-query";
+import { CryptoStats } from "../types";
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 
 function DashboardCryptoStats() {
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<CryptoStats[]>({
     queryKey: ['cryptoData'],
     queryFn: getCryptoStats,
     staleTime: 10 * 60 * 1000,
@@ -31,7 +32,7 @@ function DashboardCryptoStats() {
       <h3 className="text-2xl leading-6 text-gray-300">Market Move</h3>
 
       <dl className="grid grid-cols-2 gap-2 mt-5">
-        {data.map((item) => (
+        {data?.map((item) => (
           <div
             key={item.id}
             className="relative px-2 pt-2 pb-2 overflow-hidden bg-gray-700 rounded-lg shadow"
@@ -47,7 +48,7 @@ function DashboardCryptoStats() {
               <p className="ml-2 text-xl font-semibold text-gray-300">{parseFloat(item.price_change_percentage_24h).toFixed(2)}%</p>
               <p
                 className={classNames(
-                  item.price_change_percentage_24h > 0 ? 'text-green-600' : 'text-red-600',
+                  parseFloat(item.price_change_percentage_24h) > 0 ? 'text-green-600' : 'text-red-600',
                   'ml-2 flex items-baseline text-sm font-semibold'
                 )}
               >

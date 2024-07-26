@@ -18,16 +18,6 @@ interface InitApiHash{
     isEnabled: boolean;
   }
 
-  interface IMission {
-    uri: string;
-    externalURL: string;
-    title: string;
-    description: string;
-    reward: number;
-    ExpiresAt: string;
-    isEnabled: boolean;
-  }
-
 export const AppContext = createContext<InitApiHash | undefined>(undefined)
 export const InitUserContext = React.createContext<AppConf | undefined>(undefined);
 

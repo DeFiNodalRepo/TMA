@@ -6,7 +6,7 @@ import Missions from "./Missions";
 import { useSyncData } from "../react-query/useSyncData";
 import Loader from "../components/Loader";
 
-function PagesIndex({apiToken}) {
+function PagesIndex({apiToken}: any) {
 
   const token = apiToken?.body
 
