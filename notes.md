@@ -78,13 +78,4 @@ export function useSyncData(apiToken, upgradeId) {
     "Status": "sucess"
 }
 
-ntlify original
-[build]
-  command = "npm run build"
-  CI=false npm run build
-  publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+check for // @ts-ignore in production

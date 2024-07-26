@@ -89,10 +89,14 @@ function Vaults() {
                 img={vault.uri}
                 name={vault.title}
                 description={vault.description}
+                // @ts-ignore
                 currentLevel={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentLevel : undefined}
+                // @ts-ignore
                 price={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.upgradePrice : undefined}
                 id={key}
+                // @ts-ignore
                 earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentProfitPerHour : undefined}
+                // @ts-ignore
                 profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.profitPerHourDelta : undefined}
                 onInvestClick={onInvestClick}
               /> 

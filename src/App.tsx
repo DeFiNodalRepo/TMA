@@ -4,25 +4,23 @@ import Loader from "./components/Loader";
 import { useEffect, useState } from "react";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { initInitData } from '@telegram-apps/sdk';
+// import { initInitData } from '@telegram-apps/sdk';
 import { queryClient } from '../src/react-query/queryClient'
 import { getAuth, getConfData, getInitData } from "./api/apiCalls";
 import { AppContext, InitUserContext, SyncDataProvider } from "./state-management/context";
-
 import PagesIndex from "./pages/PagesIndex";
-
-
 
 function App() {
   const [apiToken, setApiToken] = useState()
   const [initUserData, setInitUserData] = useState()
+  // @ts-ignore
   const [confData, setConfData] = useState()
   const [loading, setLoading] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const tgData = window.Telegram.WebApp
-  const initSessionData = tgData.initData
+  // const tgData = window.Telegram.WebApp
+  // const initSessionData = tgData.initData
 
   // console.log("initSessionData", initSessionData)
 
@@ -60,7 +58,9 @@ function App() {
     };
   
     fetchData();
-  }, [initSessionData]);
+  }, []);
+  // Uncomment on production
+  // }, [initSessionData]);
 
   if (isLoading) {
     return <Loader />;
