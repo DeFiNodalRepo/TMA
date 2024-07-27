@@ -1,2 +1,2 @@
-export const baseUrl = 'http://104.248.140.117:8081'
+export const baseUrl = 'https://definodal.hec.to'
 export const baseImageUrl = 'https://github.com'
