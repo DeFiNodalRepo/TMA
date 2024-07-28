@@ -14,7 +14,7 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   // }
 
   return (
-    <div className="bg-sky-900 min-h-screen">
+    <div className="bg-sky-900 min-h-screen overflow-auto">
       <div className="bg-gray-900 flex flex-col h-screen">
         <Header />
         <div className='sticky top-0 z-10'>
