@@ -8,7 +8,7 @@ export function useSyncData(apiToken: string | undefined, upgradeId=''){
         queryFn: () => getSyncData(apiToken, upgradeId),
         enabled: !!apiToken,
         // staleTime:  10 * 60 * 1000,
-        // refetchOnMount: false,
+        refetchOnMount: false,
       });
       return { data, isError, isLoading, refetch };
     } catch (error) {

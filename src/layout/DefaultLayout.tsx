@@ -14,23 +14,19 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   // }
 
   return (
-    <div className="bg-sky-900">
-      <div className="bg-gray-900">
-        <div className="flex h-screen overflow-hidden">
-          <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
-            <Header />
-            <div className='sticky top-4'>
-              <HeaderStats />
-            </div>
-            <main className="flex-grow overflow-auto">
-              <div className="mx-auto mt-[2px] max-w-screen-2xl p-4">
-                {isFetching ? <Loader /> : children}
-              </div>
-            </main>
-            <div className="sticky bottom-0 left-0 right-0 my-2">
-              <MenuBar />
-            </div>
+    <div className="bg-sky-900 min-h-screen">
+      <div className="bg-gray-900 flex flex-col h-screen">
+        <Header />
+        <div className='sticky top-0 z-10'>
+          <HeaderStats />
+        </div>
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto p-4">
+            {isFetching ? <Loader /> : children}
           </div>
+        </main>
+        <div className="sticky bottom-0 left-0 right-0 bg-gray-900">
+          <MenuBar />
         </div>
       </div>
     </div>
