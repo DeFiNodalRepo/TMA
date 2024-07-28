@@ -35,7 +35,7 @@ function DashboardCryptoStats() {
         {data?.map((item) => (
           <div
             key={item.id}
-            className="relative px-2 pt-2 pb-2 overflow-hidden bg-gray-700 rounded-lg shadow"
+            className="relative px-2 pt-2 pb-2 bg-gray-700 rounded-lg shadow"
           >
             <dt>
               <div className="absolute rounded-md">

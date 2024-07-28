@@ -9,18 +9,13 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const isFetching = useIsFetching()
 
-  // if (isFetching) {
-  //   console.log("true")
-  // }
-
   return (
-    <div className="bg-sky-900 min-h-screen overflow-auto">
       <div className="bg-gray-900 flex flex-col h-screen">
         <Header />
         <div className='sticky top-0 z-10'>
           <HeaderStats />
         </div>
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1">
           <div className="mx-auto p-4">
             {isFetching ? <Loader /> : children}
           </div>
@@ -29,7 +24,6 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <MenuBar />
         </div>
       </div>
-    </div>
   )
 }
 
