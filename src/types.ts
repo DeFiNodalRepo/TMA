@@ -37,6 +37,7 @@ export interface CardPopUpProps {
 
 export interface VaultCardProps extends CardPopUpProps {
   currentLevel: number | undefined;
+  userBalance: number | undefined
 }
 
 export interface Mission {

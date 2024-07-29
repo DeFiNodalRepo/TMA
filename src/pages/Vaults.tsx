@@ -52,8 +52,6 @@ function Vaults() {
 
   const confUser = JSON.parse(userData.conf)
 
-  console.log(userData)
-
   if (mutation.isPending) {
     return (
       <DefaultLayout>
@@ -62,6 +60,8 @@ function Vaults() {
   }
 
   let syncUser = JSON.parse(data.Body)
+
+  console.log("syncUser", syncUser.balance)
 
   if (mutation.isSuccess){
     syncUser = JSON.parse(mutation.data.Body)
@@ -99,6 +99,7 @@ function Vaults() {
                 // @ts-ignore
                 profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.profitPerHourDelta : undefined}
                 onInvestClick={onInvestClick}
+                userBalance= {syncUser.balance}
               /> 
             </motion.div>
           ))}
