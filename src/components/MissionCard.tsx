@@ -16,8 +16,6 @@ export default function MissionCard({missions, syncMissions, onSelectMission}: M
     onSelectMission(key);
   }
 
-  console.log("syncMissions mission card", syncMissions)
-
   return (
     <>
       <h1 className='my-4 text-2xl'>Active Missions</h1>
@@ -51,8 +49,11 @@ export default function MissionCard({missions, syncMissions, onSelectMission}: M
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="text-amber-600">Reward</dt>
               <dd className="text-gray-300">{mission.reward}</dd>
-              <dt className="font-semibold text-sky-600">Amount</dt>
-              <dd className="text-gray-300">{mission.reward}</dd>
+              <dt className="font-semibold text-sky-600">Status</dt>
+              <dd className="text-gray-300">{syncMissions[key]?.isCompleted ? 
+            "Completed" : 
+            "Pending"
+          }</dd>
             </div>
           </dl>
         </li>
