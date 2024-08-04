@@ -21,7 +21,7 @@ function VaultCards({ img, name, description, currentLevel, price, id, earnings,
   console.log(buttonDisable)
 
   return (
-    <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={!buttonDisable ? handlePopUpToggle : null}>
+    <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={buttonDisable ? (() => {}) : handlePopUpToggle}>
       <div className="mx-2 my-2">
         <div className="grid grid-cols-2 items-center gap-2">
           <img className="h-16 w-16 rounded-lg" src={img} alt={name} />
