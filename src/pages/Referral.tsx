@@ -17,8 +17,6 @@ function Referrals() {
   const initialData = initInitData();
   const utils = initUtils()
 
-  console.log("initialData sdk", initialData?.user?.id)
-
   const inviteLink = `https://t.me/DeFiNodal_bot/definodal_miniapp/start?startapp=${initialData?.user?.id}`
 
   // https://t.me/DeFiNodal_bot/definodal_miniapp/start?startapp=3A6915997019
@@ -36,10 +34,8 @@ function Referrals() {
   }
 
   const parsedDataBody = JSON.parse(data?.Body)
-  console.log(parsedDataBody.invites)
 
   const handleCopyInviteLink = () => {
-    console.log("handleCopyInviteLink")
     utils.shareURL(inviteLink)
   }
 

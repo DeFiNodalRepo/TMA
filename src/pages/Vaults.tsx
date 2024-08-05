@@ -19,8 +19,6 @@ function Vaults() {
 
   const {data, isError, isLoading} = useSyncData(token)
 
-  console.log(data)
-
   const {setSyncData} = useContextSyncData()
 
   const mutation = useMutation({
@@ -63,17 +61,12 @@ function Vaults() {
 
   let syncUser = JSON.parse(data.Body)
 
-  console.log("syncUser", syncUser.balance)
-
   if (mutation.isSuccess){
     syncUser = JSON.parse(mutation.data.Body)
   } 
 
   const vaultsConfData: VaultConf = confUser.vaults as VaultConf
   const vaultsUserData: VaultSync = syncUser.upgrades
-
-
-  console.log(token)
 
   return (
     <DefaultLayout >

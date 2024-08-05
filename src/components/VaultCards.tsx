@@ -10,15 +10,10 @@ function VaultCards({ img, name, description, currentLevel, price, id, earnings,
     setIsPopupOpen(!isPopupOpen)
   }
 
-  console.log(userBalance)
-  console.log(price)
-
   let buttonDisable = true
   if (userBalance && price && userBalance > price){
     buttonDisable = false
   }
-
-  console.log(buttonDisable)
 
   return (
     <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={buttonDisable ? (() => {}) : handlePopUpToggle}>

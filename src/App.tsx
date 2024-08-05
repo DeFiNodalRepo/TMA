@@ -22,9 +22,6 @@ function App() {
   const tgData = window.Telegram.WebApp
   const initSessionData = tgData.initData
 
-  // console.log("initSessionData", initSessionData)
-
-
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
@@ -40,10 +37,8 @@ function App() {
         
           setApiToken(apiTokenData);
           const token = await apiTokenData?.body
-          console.log(token)
           const initData = await getInitData(token)
           setInitUserData(initData)
-          console.log("initData", typeof initData)
           const conf = await getConfData();
           setConfData(conf);
         } catch (error: any) {
