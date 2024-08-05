@@ -33,7 +33,7 @@ function Referrals() {
     </DefaultLayout>
   }
 
-  const parsedDataBody = JSON.parse(data?.Body)
+  // const parsedDataBody = JSON.parse(data?.Body)
 
   const handleCopyInviteLink = () => {
     utils.shareURL(inviteLink)
