@@ -1,9 +1,11 @@
+//Todo check line 35
+
 import { useState } from 'react'
 import CardPopUp from '../components/CardPopUp'
 import { VaultCardProps } from '../types'
 
 
-function VaultCards({ img, name, description, currentLevel, price, id, earnings, profitPerHourDelta, onInvestClick, userBalance }: VaultCardProps) {
+function VaultCards({ img, name, description, buttonEnabled, currentLevel, price, id, earnings, profitPerHourDelta, onInvestClick, userBalance }: VaultCardProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   function handlePopUpToggle() {
@@ -14,9 +16,9 @@ function VaultCards({ img, name, description, currentLevel, price, id, earnings,
   if (userBalance && price && userBalance > price){
     buttonDisable = false
   }
-
+  
   return (
-    <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={buttonDisable ? (() => {}) : handlePopUpToggle}>
+    <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30" onClick={buttonDisable || !buttonEnabled ? (() => {}) : handlePopUpToggle}>
       <div className="mx-2 my-2">
         <div className="grid grid-cols-2 items-center gap-2">
           <img className="h-16 w-16 rounded-lg" src={img} alt={name} />
@@ -30,7 +32,7 @@ function VaultCards({ img, name, description, currentLevel, price, id, earnings,
           <h1 className="text-sm">Cost: {price}</h1>
         </div>
         <div className='mx-4 text-xs text-red-500'>
-          {buttonDisable ? "Not enough balance" : null}
+          {userBalance < price ? "Not enough balance" : null}
         </div>
       </div>
       {isPopupOpen && <CardPopUp img={img} name={name} description={description} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} onInvestClick={onInvestClick} />}

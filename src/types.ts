@@ -33,6 +33,7 @@ export interface CardPopUpProps {
   id: string, 
   profitPerHourDelta: number | undefined, 
   onInvestClick: (voultId: string) => void
+  buttonEnabled?: boolean
 }
 
 export interface VaultCardProps extends CardPopUpProps {

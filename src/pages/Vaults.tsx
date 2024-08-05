@@ -68,11 +68,34 @@ function Vaults() {
   const vaultsConfData: VaultConf = confUser.vaults as VaultConf
   const vaultsUserData: VaultSync = syncUser.upgrades
 
+  console.log("vaultsConfData", vaultsConfData)
+  // console.log("vaultsUserData", vaultsUserData)
+
+  const enabledVaults = Object.entries(vaultsConfData).filter(([key, vault]) => vault.isEnabled)
+
+
+  let buttonEnabled = false
+
+  enabledVaults.forEach(([id, details]) => {
+    if (details.conditionId && vaultsUserData[id]){
+      if (vaultsUserData[id].currentLevel >= details.conditionValue){
+        details.buttonEnabled = true
+        buttonEnabled = true
+      } else {
+        details.buttonEnabled = false
+      }
+    } else {
+      details.buttonEnabled = true
+    }
+  })
+
+  console.log(enabledVaults)
+
   return (
     <DefaultLayout >
       <h1>Vaults</h1>
       <div className="grid grid-cols-2 gap-x-4">
-        {Object.entries(vaultsConfData).map(([key, vault], index) => (
+        {enabledVaults.map(([key, vault], index) => (
             <motion.div
               key={key}
               initial={{ x: -100 }} // Start off-screen to the left
@@ -84,6 +107,7 @@ function Vaults() {
                 img={vault.uri}
                 name={vault.title}
                 description={vault.description}
+                buttonEnabled={vault.buttonEnabled}
                 // @ts-ignore
                 currentLevel={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentLevel : undefined}
                 // @ts-ignore
