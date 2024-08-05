@@ -11,7 +11,8 @@ function Referrals() {
   const authData = useContext(AppContext)
   const token = authData?.body
 
-  const {data, isError, isLoading} = useSyncData(token)
+  const {isError, isLoading} = useSyncData(token)
+  // const {data, isError, isLoading} = useSyncData(token)
 
   
   const initialData = initInitData();
