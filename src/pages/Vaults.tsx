@@ -19,6 +19,8 @@ function Vaults() {
 
   const {data, isError, isLoading} = useSyncData(token)
 
+  console.log(data)
+
   const {setSyncData} = useContextSyncData()
 
   const mutation = useMutation({
