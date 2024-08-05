@@ -41,6 +41,7 @@ function App() {
           setInitUserData(initData)
           const conf = await getConfData();
           setConfData(conf);
+          console.log(conf)
         } catch (error: any) {
           console.error("Error fetching data:", error);
           setError(error.toString());
