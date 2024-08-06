@@ -7,10 +7,15 @@ function classNames(...classes: string[]) {
 }
 
 export default function MissionCard({missions, syncMissions, onSelectMission}: MissionsProps) {
+
   // @ts-ignore
-  const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true)
+  const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true && new Date(mission.ExpiresAt) > new Date() && !syncMissions[key].isCompleted)
   // @ts-ignore
-  const expiredMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled ===false)
+  const disabledMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === false)
+
+  const completedMissions = Object.entries(missions).filter(([key, mission]) => syncMissions[key].isCompleted)
+
+  console.log(completedMissions)
 
   const handleMissionClick = (key: string) => {
     onSelectMission(key);
@@ -19,6 +24,7 @@ export default function MissionCard({missions, syncMissions, onSelectMission}: M
   return (
     <>
       <h1 className='my-4 text-2xl'>Active Missions</h1>
+      {activeMissions.length === 0 ? <p className="text-green-500">Hurray!!! You completed all missions</p> : null}
       {/* <div className="my-2 flex max-w-md overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-md shadow-blue-900/30">
 
       </div> */}
@@ -60,9 +66,9 @@ export default function MissionCard({missions, syncMissions, onSelectMission}: M
       ))}
       
     </ul>
-    <h1 className='my-4 text-2xl'>Expired Missions</h1>
+    <h1 className='my-4 text-2xl'>Completed Missions</h1>
     <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-8">
-      {expiredMissions.map(([key, mission]) => (
+      {completedMissions.map(([key, mission]) => (
         <li key={key} className="overflow-hidden rounded-xl border border-gray-700">
           <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-500 p-6">
             <img

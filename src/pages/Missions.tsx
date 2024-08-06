@@ -65,6 +65,8 @@ function Missions() {
   const missionsConfData = confUser.missions
   const missionsUserData = syncUser.missions
 
+  console.log("missionsConfData", missionsConfData)
+
   return (
     <DefaultLayout >
         <MissionCard missions={missionsConfData} syncMissions={missionsUserData} onSelectMission={handleMissionSelect}/>

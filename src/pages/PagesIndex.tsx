@@ -12,8 +12,6 @@ function PagesIndex({apiToken}: any) {
 
   const {data, isLoading, isError} = useSyncData(token, '')
 
-  console.log(data)
-
   if(isLoading){
     return <Loader />
   }

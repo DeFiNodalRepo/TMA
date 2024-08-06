@@ -68,9 +68,6 @@ function Vaults() {
   const vaultsConfData: VaultConf = confUser.vaults as VaultConf
   const vaultsUserData: VaultSync = syncUser.upgrades
 
-  console.log("vaultsConfData", vaultsConfData)
-  // console.log("vaultsUserData", vaultsUserData)
-
   const enabledVaults = Object.entries(vaultsConfData).filter(([key, vault]) => vault.isEnabled)
 
 
@@ -88,8 +85,6 @@ function Vaults() {
       details.buttonEnabled = true
     }
   })
-
-  console.log(enabledVaults)
 
   return (
     <DefaultLayout >
