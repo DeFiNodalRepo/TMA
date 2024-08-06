@@ -32,7 +32,7 @@ function VaultCards({ img, name, description, buttonEnabled, currentLevel, price
           <h1 className="text-sm">Cost: {price}</h1>
         </div>
         <div className='mx-4 text-xs text-red-500'>
-          {userBalance < price ? "Not enough balance" : null}
+          {(userBalance !== undefined && price !== undefined && userBalance < price) ? "Not enough balance" : null}
         </div>
       </div>
       {isPopupOpen && <CardPopUp img={img} name={name} description={description} price={price} earnings={earnings} id={id} profitPerHourDelta={profitPerHourDelta} isPopupOpen={isPopupOpen} onInvestClick={onInvestClick} />}

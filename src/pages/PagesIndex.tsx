@@ -10,7 +10,7 @@ function PagesIndex({apiToken}: any) {
 
   const token = apiToken?.body
 
-  const {data, isLoading, isError} = useSyncData(token, '')
+  const {isLoading, isError} = useSyncData(token, '')
 
   if(isLoading){
     return <Loader />

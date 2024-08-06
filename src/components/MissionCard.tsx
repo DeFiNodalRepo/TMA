@@ -8,12 +8,9 @@ function classNames(...classes: string[]) {
 
 export default function MissionCard({missions, syncMissions, onSelectMission}: MissionsProps) {
 
-  // @ts-ignore
-  const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true && new Date(mission.ExpiresAt) > new Date() && !syncMissions[key].isCompleted)
-  // @ts-ignore
-  const disabledMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === false)
 
-  const completedMissions = Object.entries(missions).filter(([key, mission]) => syncMissions[key].isCompleted)
+  const activeMissions = Object.entries(missions).filter(([key, mission]) => mission.isEnabled === true && new Date(mission.ExpiresAt) > new Date() && !syncMissions[key].isCompleted)
+  const completedMissions = Object.entries(missions).filter(([key, ]) => syncMissions[key].isCompleted)
 
   console.log(completedMissions)
 

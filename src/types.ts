@@ -15,13 +15,16 @@ export interface VaultConf {
   isEnabled: boolean;
 }
 
-export interface VaultSync {
+export interface VaultSyncData {
   upgradePrice: number | undefined;
   currentProfitPerHour: number;
   profitPerHourDelta: number;
-  currentLevel: number;
-  [key: string]: number | undefined;
-  }
+  currentLevel?: number;
+}
+
+export interface VaultSync {
+  [key: string]: VaultSyncData;
+}
 
 export interface CardPopUpProps {
   isPopupOpen?: boolean,
@@ -37,7 +40,7 @@ export interface CardPopUpProps {
 }
 
 export interface VaultCardProps extends CardPopUpProps {
-  currentLevel: number | undefined;
+  currentLevel?: number | undefined;
   userBalance: number | undefined
 }
 

@@ -68,23 +68,20 @@ function Vaults() {
   const vaultsConfData: VaultConf = confUser.vaults as VaultConf
   const vaultsUserData: VaultSync = syncUser.upgrades
 
-  const enabledVaults = Object.entries(vaultsConfData).filter(([key, vault]) => vault.isEnabled)
-
-
-  let buttonEnabled = false
+  const enabledVaults = Object.entries(vaultsConfData).filter(([, vault]) => vault.isEnabled)
 
   enabledVaults.forEach(([id, details]) => {
-    if (details.conditionId && vaultsUserData[id]){
-      if (vaultsUserData[id].currentLevel >= details.conditionValue){
-        details.buttonEnabled = true
-        buttonEnabled = true
+    const vaultData = vaultsUserData[id];
+    if (vaultData && vaultData.currentLevel !== undefined) {
+      if (vaultData.currentLevel >= details.conditionValue) {
+        details.buttonEnabled = true;
       } else {
-        details.buttonEnabled = false
+        details.buttonEnabled = false;
       }
     } else {
-      details.buttonEnabled = true
+      details.buttonEnabled = true;
     }
-  })
+  });
 
   return (
     <DefaultLayout >
@@ -103,15 +100,11 @@ function Vaults() {
                 name={vault.title}
                 description={vault.description}
                 buttonEnabled={vault.buttonEnabled}
-                // @ts-ignore
-                currentLevel={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentLevel : undefined}
-                // @ts-ignore
-                price={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.upgradePrice : undefined}
+                currentLevel={vaultsUserData[key].currentLevel}
+                price={vaultsUserData[key].upgradePrice}
+                earnings={vaultsUserData[key].currentProfitPerHour}
+                profitPerHourDelta={vaultsUserData[key].profitPerHourDelta}
                 id={key}
-                // @ts-ignore
-                earnings={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.currentProfitPerHour : undefined}
-                // @ts-ignore
-                profitPerHourDelta={typeof vaultsUserData[key] === 'object' ? (vaultsUserData[key] as VaultSync)?.profitPerHourDelta : undefined}
                 onInvestClick={onInvestClick}
                 userBalance= {syncUser.balance}
               /> 
